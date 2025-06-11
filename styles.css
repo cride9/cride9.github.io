@@ -753,6 +753,11 @@ section {
     box-shadow: 0 5px 15px var(--shadow-medium);
 }
 
+.project-link {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {

@@ -159,7 +159,7 @@ const counterObserver = new IntersectionObserver((entries) => {
                 const updateCounter = () => {
                     if (current < target) {
                         current += increment;
-                        counter.textContent = Math.ceil(current);
+                        counter.textContent = Math.floor(current);
                         setTimeout(updateCounter, 40);
                     } else {
                         counter.textContent = target;

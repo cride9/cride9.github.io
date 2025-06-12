@@ -67,6 +67,7 @@ body {
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: all 0.3s ease;
+    margin-bottom: 20px;
 }
 
 [data-theme="dark"] .navbar {
@@ -166,6 +167,7 @@ body {
     background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
     position: relative;
     overflow: hidden;
+    padding-top: 100px;
 }
 
 .hero::before {

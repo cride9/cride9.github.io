@@ -1,470 +1,53 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bálint Bartl - Junior Szoftverfejlesztő</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Bartl Bálint | Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span>BB</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Kezdőlap</a></li>
-                <li><a href="#about" class="nav-link">Rólam</a></li>
-                <li><a href="#skills" class="nav-link">Képességek</a></li>
-                <li><a href="#education" class="nav-link">Oktatás</a></li>
-                <li><a href="#projects" class="nav-link">Projektek</a></li>
-                <li><a href="#contact" class="nav-link">Kapcsolat</a></li>
+
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Bartl Bálint | Cride</a>
+            <ul>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="setup.html" class="nav-link">Setup</a></li>
+                <li><a href="interests.html" class="nav-link">Interests</a></li>
+                <li><a href="about.html" class="nav-link">About Me</a></li>
             </ul>
-            <div class="nav-toggle">
-                <button id="theme-toggle" class="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </nav>
+            <button id="theme-toggle" class="theme-button">🌙</button>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="highlight">Bartl Bálint</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        <span id="typing-text"></span>
-                        <span class="cursor">|</span>
-                    </p>
-                    <p class="hero-description">
-                        Szoftverfejlesztő és tesztelő technikusként végeztem 2023-ban. 
-                        Többéves tapasztalattal rendelkezem különböző programozási nyelvekben 
-                        és keretrendszerekben.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Kapcsolat</a>
-                        <a href="#projects" class="btn btn-secondary">Projektek</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="image-container">
-                        <div class="floating-elements">
-                            <div class="floating-element" data-speed="2">
-                                <i class="fab fa-html5"></i>
-                            </div>
-                            <div class="floating-element" data-speed="3">
-                                <i class="fab fa-css3-alt"></i>
-                            </div>
-                            <div class="floating-element" data-speed="1.5">
-                                <i class="fab fa-js-square"></i>
-                            </div>
-                            <div class="floating-element" data-speed="2.5">
-                                <i class="fab fa-php"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main class="container">
+        <section class="hero">
+            <h1>Bartl Bálint</h1>
+            <p class="tagline">Software Developer, currently working at GriffSoft as a C# .NET Developer.</p>
+            <div class="card">
+                <h2>Hello There!</h2>
+                <p>
+                    I started programming when I was around 10 years old to compete against CS:GO cheaters. I wanted to build my own cheat to fight against them. This sparked a deep passion for programming, and now I develop a wide range of things including websites, backends, and even anticheats.
+                </p>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <footer>
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Rólam</h2>
-                <p class="section-subtitle">Ismerj meg jobban</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Az elmúlt 4 évben saját projekteken dolgoztam szabadidőmben, 
-                        folyamatosan bővítve szakmai tudásomat és készségeimet. 
-                        Jelenleg a Szegedi Tudományegyetemen tanulok Programtervező 
-                        Informatikus szakon.
-                    </p>
-                    <p>
-                        Szenvedélyem a webfejlesztés és a desktop alkalmazások készítése. 
-                        Szeretem a kihívásokat és mindig törekszem a tiszta, 
-                        hatékony kód írására.
-                    </p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="4">0</span>
-                            <span class="stat-label">Év tapasztalat</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="15">0</span>
-                            <span class="stat-label">Befejezett projekt</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="8">0</span>
-                            <span class="stat-label">Technológia</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Képességek</h2>
-                <p class="section-subtitle">Technológiák amikben jártas vagyok</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Frontend</h3>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>HTML/CSS</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="90"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>JavaScript</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>TypeScript</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="75"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category">
-                    <h3>Backend</h3>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>PHP/Laravel</span>
-                            <span>88%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="88"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>C#</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>C++</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="80"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category">
-                    <h3>Eszközök</h3>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Git</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>MySQL</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="80"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>.NET</span>
-                            <span>82%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="82"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Oktatás</h2>
-                <p class="section-subtitle">Tanulmányaim és képzéseim</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2024. szeptember - Jelen</div>
-                        <h3>Programtervező Informatikus</h3>
-                        <h4>Szegedi Tudományegyetem</h4>
-                        <p>Idén kezdtem tanulmányaimat az egyetemen, ahol mélyebb ismereteket szerzek a programozás és informatika területén.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2019. szeptember - 2024. április</div>
-                        <h3>Szoftverfejlesztő és tesztelő technikus</h3>
-                        <h4>BMSZC Verebély László Technikum</h4>
-                        <p>Alapos ismereteket szereztem C#, PHP/Laravel, MySQL területeken. A technikusi vizsgához desktop alkalmazást készítettem adatbázis kapcsolattal.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">C#</span>
-                            <span class="skill-tag">PHP/Laravel</span>
-                            <span class="skill-tag">MySQL</span>
-                            <span class="skill-tag">Desktop alkalmazások</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Projektek</h2>
-                <p class="section-subtitle">Hobbi munkáim és projektjeim</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Weboldal készítés</h3>
-                    <p>Kisebb cégek számára készítek modern, reszponzív weboldalakat egyedi igények szerint.</p>
-                    <div class="project-tech">
-                        <span>HTML/CSS</span>
-                        <span>JavaScript</span>
-                        <span>PHP</span>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Egyéni webfejlesztés</h3>
-                    <p>Személyre szabott weboldal fejlesztés kérésre, modern technológiák használatával.</p>
-                    <div class="project-tech">
-                        <span>Laravel</span>
-                        <span>MySQL</span>
-                        <span>JavaScript</span>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <h3>Desktop alkalmazások</h3>
-                    <p>.NET8 környezetben fejlesztek desktop alkalmazásokat különböző célokra.</p>
-                    <div class="project-tech">
-                        <span>C#</span>
-                        <span>.NET8</span>
-                        <span>WPF</span>
-                    </div>
-                </div>
-                
-                <a class="project-link" href="https://github.com/cride9/RyzeX" target="_blank">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>C++ alkalmazások</h3>
-                        <p>Speciális C++ alkalmazások fejlesztése, például anticheat rendszerek.</p>
-                        <div class="project-tech">
-                            <span>C++</span>
-                            <span>Windows API</span>
-                            <span>Security</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a class="project-link" href="https://github.com/cride9/CS-Overlaymaker" target="_blank">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <h3>CS-Overlaymaker</h3>
-                        <p>Transzparens overlay alkalmazás bármely ablakos folyamathoz. Logo megjelenítés, billentyűzet vizualizáció és egyéb overlay funkciók.</p>
-                        <div class="project-tech">
-                            <span>C#</span>
-                            <span>.NET8</span>
-                            <span>Overlay</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a class="project-link" href="https://github.com/cride9/BeatmapPackager" target="_blank">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <h3>osu! BeatmapPackager</h3>
-                        <p>osu! beatmap megosztó alkalmazás automatikus script generálással és intelligens beatmap kezeléssel. 1 star, 2 fork a GitHub-on.</p>
-                        <div class="project-tech">
-                            <span>C#</span>
-                            <span>Windows Forms</span>
-                            <span>PowerShell</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="project-link" href="https://www.pizzadifeco.hu/" target="_blank">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-pizza-slice"></i>
-                        </div>
-                        <h3>Pizza Di Fecó</h3>
-                        <p>Pizzéria weboldal rendelési rendszerrel és modern dizájnnal. Teljes funkcionalitással működő projekt.</p>
-                        <div class="project-tech">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>React</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="project-link" href="" target="_blank">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <h3>Masszázs szalon</h3>
-                        <p>Professzionális masszázs szalon weboldal időpontfoglalási rendszerrel. Jelenleg fejlesztés alatt áll.</p>
-                        <div class="project-tech">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>React</span>
-                        </div>
-                    </div>
-                </a>
-                
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Kapcsolat</h2>
-                <p class="section-subtitle">Vedd fel velem a kapcsolatot</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>bartlbalint80@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Helyszín</h3>
-                            <p>Magyarország</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Státusz</h3>
-                            <p>Egyetemi hallgató</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Név" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Tárgy" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Üzenet" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Üzenet küldése</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 Bálint Bartl. Minden jog fenntartva.</p>
-                <div class="social-links">
-                    <a href="https://github.com/cride9" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="mailto:bartlbalint80@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-                </div>
+            <p>&copy; 2024 Bartl Bálint</p>
+            <div class="social-links">
+                <a href="https://github.com/cride9" target="_blank">GitHub</a>
+                <a href="mailto:bartlbalint80@gmail.com">Email</a>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="theme.js"></script>
 </body>
 </html>
-

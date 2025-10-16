@@ -1,0 +1,76 @@
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+/* A little custom CSS for the gradient text to avoid adding it to app.css */
+.gradient-text {
+    background: linear-gradient(to right, #a7a3ff, #625bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.skill-tag {
+    display: inline-block;
+    background: rgba(98, 91, 255, 0.1);
+    border: 1px solid rgba(98, 91, 255, 0.2);
+    color: #a7a3ff;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: rgba(98, 91, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.section-padding {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+.glass-card {
+    background: rgba(17, 17, 27, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+}
+
+.hero-gradient {
+    background: radial-gradient(ellipse at center, rgba(98, 91, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+/* In css/app.css */
+.skill-tag {
+    @apply bg-gray-800 text-gray-300 font-medium py-1.5 px-4 rounded-full text-sm;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f17;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #625bff, #a7a3ff);
+    border-radius: 6px;
+    border: 2px solid #0f0f17;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #5a54e6, #9a96ff);
+}
+
+/* Additional scrollbar styling for Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #625bff #0f0f17;
+}

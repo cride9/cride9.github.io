@@ -1,53 +1,366 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bartl Bálint | Home</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bálint Bartl | Junior Software Developer</title>
 
-    <header>
-        <nav class="container">
-            <a href="index.html" class="logo">Bartl Bálint | Cride</a>
-            <ul>
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="projects.html" class="nav-link">Projects</a></li>
-                <li><a href="setup.html" class="nav-link">Setup</a></li>
-                <li><a href="interests.html" class="nav-link">Interests</a></li>
-                <li><a href="about.html" class="nav-link">About Me</a></li>
-            </ul>
-            <button id="theme-toggle" class="theme-button">🌙</button>
-        </nav>
+    <link rel="preconnect" href="https://fonts.googleapis.com  ">
+    <link rel="preconnect" href="https://fonts.gstatic.com  " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library for reveal effects -->
+    <link href="  https://unpkg.com/aos@2.3.1/dist/aos.css  " rel="stylesheet">
+
+    <link href="css/output.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet"/>
+
+</head>
+<body class="bg-black text-gray-300 antialiased font-[Poppins] overflow-x-hidden">
+    <!-- The background canvas from your original file -->
+    <canvas id="canvas" class="fixed inset-0 w-screen h-screen z-[-1]"></canvas>
+
+    <!-- Hero Section -->
+    <header class="relative z-10 flex h-screen min-h-[700px] flex-col items-center justify-center text-center p-4 hero-gradient">
+        <div data-aos="fade-up" class="max-w-4xl">
+            <h1 class="text-5xl md:text-7xl font-bold text-gray-100 leading-tight">
+                <span class="">Bálint</span>
+                <span class="gradient-text mt-2">Bartl</span>
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-semibold mt-6 gradient-text">
+                Junior Software Developer
+            </h2>
+            <p class="mt-8 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                A passionate and detail-oriented developer with a strong focus on C# and .NET, dedicated to building efficient, stable, and user-friendly applications.
+            </p>
+            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#experience" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-8 rounded-xl hover:from-indigo-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-indigo-500/20">
+                    View My Work
+                </a>
+                <a href="#contact" class="bg-gray-800 text-white font-semibold py-4 px-8 rounded-xl hover:bg-gray-700 transition-all duration-300 border border-gray-700">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+        <!-- Scroll down indicator -->
+        <a href="#recommendation" class="absolute bottom-10 animate-bounce">
+            <div class="w-12 h-12 rounded-full bg-gray-800/50 border border-gray-700 flex items-center justify-center hover:bg-gray-700/50 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5" />
+                </svg>
+            </div>
+        </a>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1>Bartl Bálint</h1>
-            <p class="tagline">Software Developer, currently working at GriffSoft as a C# .NET Developer.</p>
-            <div class="card">
-                <h2>Hello There!</h2>
-                <p>
-                    I started programming when I was around 10 years old to compete against CS:GO cheaters. I wanted to build my own cheat to fight against them. This sparked a deep passion for programming, and now I develop a wide range of things including websites, backends, and even anticheats.
-                </p>
+    <main class="relative z-10">
+
+        <!-- About Me Section -->
+        <section id="about" class="section-padding">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">Who I Am</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-6">About Me</h2>
+                    <div class="glass-card p-8 md:p-12 border-gray-800">
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            I am a Junior Software Developer and a current Computer Science student at the University of Szeged. Having graduated as a Software Developer and Tester Technician, I have spent the last four years honing my skills through personal and freelance projects. My experience spans a range of technologies, including C#, C++, PHP, and Laravel. I am driven by a passion for problem-solving and a commitment to writing clean, high-quality code.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Bartl Bálint</p>
-            <div class="social-links">
-                <a href="https://github.com/cride9" target="_blank">GitHub</a>
-                <a href="mailto:bartlbalint80@gmail.com">Email</a>
+        <!-- Professional Experience Section -->
+        <section id="experience" class="section-padding bg-gray-950/20">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">My Journey</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Professional Experience</h2>
+                    <p class="text-lg text-indigo-400 font-semibold">Junior Developer @ GriffSoft Informatikai Zrt.</p>
+                </div>
+                <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 border-gray-800" data-aos="zoom-in-up">
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                        During my time at GriffSoft, I transitioned from foundational training to making significant contributions to live production projects. I gained hands-on experience in an agile environment, mastering tools like Git and Azure DevOps while building a strong foundation in C# and SQL.
+                    </p>
+                    <h3 class="text-2xl font-semibold text-gray-100 mb-6">Key Achievements & Responsibilities:</h3>
+                    <div class="space-y-6">
+                        <div data-aos="fade-up" data-aos-delay="100" class="flex items-start gap-4 p-4 rounded-xl bg-gray-900/30 border border-gray-800/50 hover:border-indigo-500/30 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-indigo-400"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.06 0l4.001-5.5Z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-100 mb-2">Critical Bug Resolution</h4>
+                                <p class="text-gray-400">Identified and resolved a critical GDI object leak in a C#/.NET Windows Forms application, stabilizing resource usage.</p>
+                            </div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="200" class="flex items-start gap-4 p-4 rounded-xl bg-gray-900/30 border border-gray-800/50 hover:border-indigo-500/30 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-indigo-400"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.06 0l4.001-5.5Z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-100 mb-2">Race Condition Prevention</h4>
+                                <p class="text-gray-400">Engineered a solution to prevent data duplication caused by a race condition, ensuring data integrity.</p>
+                            </div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="300" class="flex items-start gap-4 p-4 rounded-xl bg-gray-900/30 border border-gray-800/50 hover:border-indigo-500/30 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-indigo-400"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.06 0l4.001-5.5Z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-100 mb-2">System Stabilization</h4>
+                                <p class="text-gray-400">Debugged and corrected environment-specific database configuration errors, improving application reliability.</p>
+                            </div>
+                        </div>
+                        <div data-aos="fade-up" data-aos-delay="400" class="flex items-start gap-4 p-4 rounded-xl bg-gray-900/30 border border-gray-800/50 hover:border-indigo-500/30 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-indigo-400"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.06 0l4.001-5.5Z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-100 mb-2">Feature Enhancement & UX Improvement</h4>
+                                <p class="text-gray-400">Extended application features and improved the user experience by refactoring faulty code and removing obsolete UI elements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendation Section -->
+        <section id="recommendation" class="section-padding bg-gradient-to-b from-gray-900/20 to-gray-950/40">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">Testimonials</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-6">What My Team Lead Says</h2>
+                </div>
+                <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 border-gray-800" data-aos="zoom-in-up">
+                    <blockquote class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" class="w-8 h-8 text-indigo-400">
+                                <path d="M440-501Zm0 381L313-234q-72-65-123.5-116t-85-96q-33.5-45-49-87T40-621q0-94 63-156.5T260-840q52 0 99 22t81 62q34-40 81-62t99-22q81 0 136 45.5T831-680h-85q-18-40-53-60t-73-20q-51 0-88 27.5T463-660h-46q-31-45-70.5-72.5T260-760q-57 0-98.5 39.5T120-621q0 33 14 67t50 78.5q36 44.5 98 104T440-228q26-23 61-53t56-50l9 9 19.5 19.5L605-283l9 9q-22 20-56 49.5T498-172l-58 52Zm280-160v-120H600v-80h120v-120h80v120h120v80H800v120h-80Z"/>
+                            </svg>
+                        </div>
+                        <p class="text-xl md:text-2xl italic text-gray-300 leading-relaxed mb-6">
+                            "Bálint is an outstanding student with remarkable abilities. He quickly finds his footing, adapts to his environment, and carries out his tasks effectively... His learning curve is steep; he structures his acquired knowledge well and applies it effectively in practice. We are completely satisfied with Bálint's work."
+                        </p>
+                        <footer class="text-lg font-semibold text-indigo-400">
+                            — Group Leader, GriffSoft Informatikai Zrt.
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section-padding">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">Expertise</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Skills & Technologies</h2>
+                    <p class="text-lg text-gray-400">A snapshot of the tools and technologies I work with.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="glass-card p-8 border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-100">Programming Languages</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-tag">C#</span>
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Lua</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 border-gray-800" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path d="M360-360v-240h240v240H360Zm80-80h80v-80h-80v80Zm-80 320v-80h-80q-33 0-56.5-23.5T200-280v-80h-80v-80h80v-80h-80v-80h80v-80q0-33 23.5-56.5T280-760h80v-80h80v80h80v-80h80v80h80q33 0 56.5 23.5T760-680v80h80v80h-80v80h80v80h-80v80q0 33-23.5 56.5T680-200h-80v80h-80v-80h-80v80h-80Zm320-160v-400H280v400h400ZM480-480Z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-100">Frameworks & Tech</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-tag">.NET / .NET 8</span>
+                            <span class="skill-tag">Laravel</span>
+                            <span class="skill-tag">Entity Framework</span>
+                            <span class="skill-tag">WCF</span>
+                            <span class="skill-tag">HTML & CSS</span>
+                            <span class="skill-tag">Blazor</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path d="M480-120q-151 0-255.5-46.5T120-280v-400q0-66 105.5-113T480-840q149 0 254.5 47T840-680v400q0 67-104.5 113.5T480-120Zm0-479q89 0 179-25.5T760-679q-11-29-100.5-55T480-760q-91 0-178.5 25.5T200-679q14 30 101.5 55T480-599Zm0 199q42 0 81-4t74.5-11.5q35.5-7.5 67-18.5t57.5-25v-120q-26 14-57.5 25t-67 18.5Q600-528 561-524t-81 4q-42 0-82-4t-75.5-11.5Q287-543 256-554t-56-25v120q25 14 56 25t66.5 18.5Q358-408 398-404t82 4Zm0 200q46 0 93.5-7t87.5-18.5q40-11.5 67-26t32-29.5v-98q-26 14-57.5 25t-67 18.5Q600-328 561-324t-81 4q-42 0-82-4t-75.5-11.5Q287-343 256-354t-56-25v99q5 15 31.5 29t66.5 25.5q40 11.5 88 18.5t94 7Z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-100">Tools & Databases</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Azure DevOps</span>
+                            <span class="skill-tag">MS SQL</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Windows Forms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Projects Section -->
+        <section id="projects" class="section-padding bg-gray-950/20">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">Portfolio</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Personal Projects</h2>
+                    <p class="text-lg text-gray-400">Selected projects I've worked on in my free time.</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <div class="glass-card p-8 md:p-10 border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-100 mb-3">Custom C++ Anticheat Application</h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    Developed a specialized C++ application on request, designed to prevent cheating in software environments. This project involved low-level system interaction and a deep understanding of application security principles.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 md:p-10 border-gray-800" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-100 mb-3">.NET 8 Desktop Applications</h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    Created various desktop tools and applications using the modern .NET 8 framework, focusing on clean architecture and efficient performance.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 md:p-10 border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-100 mb-3">Freelance Web Development</h3>
+                                <p class="text-gray-400 leading-relaxed">
+                                    Designed and developed custom websites for small businesses using PHP and Laravel. Responsible for both front-end and back-end development to deliver tailored solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section-padding">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                        <span class="text-indigo-400 font-medium">Academia</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Education</h2>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 md:p-10 border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-100">University of Szeged</h3>
+                                <p class="text-indigo-400 font-semibold mt-2">BSc in Computer Science</p>
+                                <p class="text-gray-500 mt-1">2024 – Present</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 md:p-10 border-gray-800" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-6 h-6 text-indigo-400">
+                                    <path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-100">Verebély László Technical School</h3>
+                                <p class="text-indigo-400 font-semibold mt-2">Technician, Software Developer & Tester</p>
+                                <p class="text-gray-500 mt-1">2019 – 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Contact Footer -->
+    <footer id="contact" class="bg-gradient-to-t from-gray-950/40 to-black py-20 md:py-32">
+        <div class="container mx-auto px-6 lg:px-8 text-center">
+            <div data-aos="fade-up">
+                <div class="inline-block px-4 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
+                    <span class="text-indigo-400 font-medium">Get In Touch</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-100 mb-6">Let's Connect!</h2>
+                <p class="text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
+                    I'm currently seeking new opportunities. If you have a project in mind or think I'd be a good fit for your team, I'd love to hear from you.
+                </p>
+                <div class="mb-16">
+                    <a href="mailto:bartlbalint80@gmail.com" class="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-10 rounded-xl hover:from-indigo-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-indigo-500/20 text-lg">
+                        bartlbalint80@gmail.com
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500">&copy; 2025 Bálint Bartl. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="theme.js"></script>
+    <!-- Your background script -->
+    <script type="module" src="js/background.js"></script>
+
+    <!-- AOS (Animate on Scroll) Library Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js  "></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: false,
+            offset: 100
+        });
+    </script>
 </body>
 </html>

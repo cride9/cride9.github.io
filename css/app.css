@@ -1,8 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
     font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
 }
 
-/* A little custom CSS for the gradient text to avoid adding it to app.css */
+/* Custom Selection Color */
+::selection {
+    background: rgba(98, 91, 255, 0.3);
+    color: #fff;
+}
+
+/* Gradient Text */
 .gradient-text {
     background: linear-gradient(to right, #a7a3ff, #625bff);
     -webkit-background-clip: text;
@@ -11,66 +20,152 @@
     text-fill-color: transparent;
 }
 
+/* Base Glass Card */
+.glass-card {
+    background: rgba(13, 13, 18, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    /* Force GPU acceleration to fix the "Pop" */
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* --- Spotlight Effect --- */
+.spotlight-card {
+    --mouse-x: -100px;
+    --mouse-y: -100px;
+}
+
+.spotlight-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.5rem;
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(99, 102, 241, 0.15), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+.spotlight-card>* {
+    position: relative;
+    z-index: 2;
+}
+
+/* Spotlight Effect specific styles */
+.spotlight-card {
+    /* These variables are updated via JS */
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+    --spotlight-color: rgba(98, 91, 255, 0.15);
+}
+
+.spotlight-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.5rem;
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+/* Inner content needs to sit above the spotlight glow */
+.spotlight-card>* {
+    position: relative;
+    z-index: 2;
+}
+
+/* Skill Tags */
 .skill-tag {
-    display: inline-block;
-    background: rgba(98, 91, 255, 0.1);
-    border: 1px solid rgba(98, 91, 255, 0.2);
-    color: #a7a3ff;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    @apply bg-gray-900/50 border border-gray-700/50 text-gray-300 font-medium py-2 px-4 rounded-full text-sm transition-all duration-300;
 }
 
 .skill-tag:hover {
-    background: rgba(98, 91, 255, 0.2);
-    transform: translateY(-2px);
+    @apply border-indigo-500/50 text-indigo-300 bg-indigo-500/10 -translate-y-1 shadow-[0_0_15px_rgba(99, 102, 241, 0.3)];
 }
 
 .section-padding {
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
 }
 
-.glass-card {
-    background: rgba(17, 17, 27, 0.6);
+/* Typewriter Cursor */
+.typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: #818cf8;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Navigation Blur */
+.nav-blur {
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.hero-gradient {
-    background: radial-gradient(ellipse at center, rgba(98, 91, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+/* Timeline vertical line */
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 19px;
+    /* Adjust based on icon size */
+    width: 2px;
+    background: linear-gradient(to bottom, #6366f1, rgba(99, 102, 241, 0.1));
+    z-index: 0;
 }
 
-/* In css/app.css */
-.skill-tag {
-    @apply bg-gray-800 text-gray-300 font-medium py-1.5 px-4 rounded-full text-sm;
-}
-
-/* Custom Scrollbar Styles */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0f0f17;
-    border-radius: 6px;
+    background: #050508;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #625bff, #a7a3ff);
-    border-radius: 6px;
-    border: 2px solid #0f0f17;
+    background: #312e81;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #5a54e6, #9a96ff);
-}
-
-/* Additional scrollbar styling for Firefox */
-html {
-    scrollbar-width: thin;
-    scrollbar-color: #625bff #0f0f17;
+    background: #4f46e5;
 }

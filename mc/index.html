@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KMK SMP — Minecraft 1.21.1</title>
+<meta name="description" content="Csatlakozz a KMK SMP Minecraft szerveréhez! IP: here-counters.gl.joinmc.link | Verzió: 1.21.1">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES & RESET
+   ============================================================ */
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #1a1a24;
+  --surface: #1e1e2e;
+  --surface2: #252535;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8e8f0;
+  --text-muted: #7070a0;
+  --text-dim: #4a4a6a;
+  --accent: #7fff6e;
+  --accent2: #6efff7;
+  --accent3: #ff6e6e;
+  --gold: #ffd700;
+  --nether: #ff4500;
+  --enchant: #9b59b6;
+  --font-display: 'Silkscreen', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --glow: 0 0 30px rgba(127,255,110,0.3);
+  --glow2: 0 0 30px rgba(110,255,247,0.3);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg: #f0f0f8;
+  --bg2: #e8e8f0;
+  --bg3: #dddde8;
+  --surface: #ffffff;
+  --surface2: #f5f5fc;
+  --border: rgba(0,0,0,0.08);
+  --text: #1a1a2e;
+  --text-muted: #5555880;
+  --text-dim: #9090b0;
+  --accent: #3d9e32;
+  --accent2: #1a8a83;
+  --glow: 0 0 30px rgba(61,158,50,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+#cursor {
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, background 0.3s, width 0.3s, height 0.3s;
+  mix-blend-mode: difference;
+}
+#cursor-trail {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: left 0.12s ease-out, top 0.12s ease-out, opacity 0.3s;
+  opacity: 0.5;
+}
+body:has(a:hover, button:hover) #cursor { width: 20px; height: 20px; background: var(--accent2); }
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+#preloader {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.preloader-blocks {
+  display: flex; gap: 8px;
+}
+.preloader-block {
+  width: 32px; height: 32px;
+  border-radius: 4px;
+  animation: blockBounce 0.8s ease-in-out infinite;
+}
+.preloader-block:nth-child(1) { background: #4caf50; animation-delay: 0s; }
+.preloader-block:nth-child(2) { background: #795548; animation-delay: 0.1s; }
+.preloader-block:nth-child(3) { background: #9e9e9e; animation-delay: 0.2s; }
+.preloader-block:nth-child(4) { background: #2196f3; animation-delay: 0.3s; }
+.preloader-block:nth-child(5) { background: #ff9800; animation-delay: 0.4s; }
+@keyframes blockBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(45deg); }
+}
+.preloader-text {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: 14px;
+  letter-spacing: 4px;
+  animation: pulse 1s ease-in-out infinite;
+}
+.preloader-bar {
+  width: 200px; height: 4px;
+  background: var(--surface);
+  border-radius: 2px; overflow: hidden;
+}
+.preloader-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%;
+  transition: width 0.1s ease;
+  border-radius: 2px;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* ============================================================
+   PARTICLES CANVAS
+   ============================================================ */
+#particles-canvas {
+  position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background var(--transition), backdrop-filter var(--transition);
+}
+nav.scrolled {
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--accent);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+  position: relative;
+}
+.nav-logo svg { width: 28px; height: 28px; }
+.nav-logo-glow {
+  position: absolute;
+  inset: -4px; border-radius: 6px;
+  background: var(--accent);
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity var(--transition);
+  z-index: -1;
+}
+.nav-logo:hover .nav-logo-glow { opacity: 0.3; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 8px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  transition: color var(--transition), background var(--transition);
+  letter-spacing: 0.5px;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface); }
+
+.nav-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.btn-join-nav {
+  font-family: var(--font-display);
+  font-size: 11px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-join-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow);
+}
+
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 7px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+.hamburger {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  flex-direction: column; gap: 4px;
+  width: 38px; height: 38px;
+  align-items: center; justify-content: center;
+}
+.hamburger span {
+  display: block; width: 18px; height: 2px;
+  background: var(--text);
+  transition: all var(--transition);
+  border-radius: 2px;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links, .nav-right > :not(.hamburger):not(.theme-toggle) { display: none; }
+  .hamburger { display: flex; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 70px; left: 0; right: 0;
+    background: rgba(10,10,15,0.97);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#hero-canvas {
+  position: absolute; inset: 0;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  padding: 6px 16px;
+  border: 1px solid rgba(127,255,110,0.3);
+  border-radius: 100px;
+  background: rgba(127,255,110,0.05);
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 8vw, 96px);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.hero-title .line1 { display: block; }
+.hero-title .line2 {
+  display: block;
+  color: var(--accent);
+  text-shadow: 0 0 60px rgba(127,255,110,0.5);
+  position: relative;
+}
+
+.hero-title .word-emelet {
+  position: relative;
+  display: inline-block;
+}
+.hero-title .word-emelet::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0; height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineIn 1s ease 1.5s forwards;
+}
+@keyframes underlineIn { to { transform: scaleX(1); } }
+
+.hero-subtitle {
+  font-size: clamp(15px, 2vw, 19px);
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  font-weight: 300;
+  max-width: 500px;
+  margin-left: auto; margin-right: auto;
+}
+
+.hero-ip {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--accent2);
+}
+.hero-ip:hover {
+  border-color: var(--accent2);
+  box-shadow: var(--glow2);
+  transform: translateY(-2px);
+}
+.hero-ip-label { color: var(--text-dim); font-size: 11px; letter-spacing: 2px; }
+
+.hero-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: var(--font-display);
+  font-size: 13px;
+  background: var(--accent);
+  color: #000;
+  border: none; padding: 14px 32px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all var(--transition);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.btn-primary:hover::before { transform: translateX(100%); }
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(127,255,110,0.4);
+}
+.btn-primary:active { transform: translateY(-1px); }
+
+.btn-secondary {
+  font-family: var(--font-display);
+  font-size: 13px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 14px 32px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all var(--transition);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover {
+  border-color: var(--text-muted);
+  background: var(--surface);
+  transform: translateY(-3px);
+}
+
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-dim); font-size: 11px; letter-spacing: 2px;
+  font-family: var(--font-mono);
+  animation: scrollHintFade 3s ease 2s infinite;
+}
+.scroll-arrow {
+  width: 20px; height: 20px;
+  border-right: 2px solid var(--text-dim);
+  border-bottom: 2px solid var(--text-dim);
+  transform: rotate(45deg);
+  animation: scrollArrow 1.5s ease-in-out infinite;
+}
+@keyframes scrollArrow { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+@keyframes scrollHintFade { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* Floating blocks */
+.floating-block {
+  position: absolute;
+  width: 32px; height: 32px;
+  border-radius: 4px;
+  opacity: 0.15;
+  animation: floatBlock linear infinite;
+  pointer-events: none;
+}
+@keyframes floatBlock {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.15; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================================
+   STATS BAR
+   ============================================================ */
+#stats-bar {
+  position: relative; z-index: 2;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 60px; flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+section {
+  position: relative; z-index: 1;
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-tag::before {
+  content: '';
+  width: 30px; height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+/* ============================================================
+   FEATURES SECTION
+   ============================================================ */
+#features {
+  padding: 120px 40px;
+}
+#features-wrap {
+  max-width: 1200px; margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+}
+
+@media (max-width: 900px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feature-card {
+  background: var(--surface);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+  cursor: default;
+}
+.feature-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--accent) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.feature-card:hover::before { opacity: 0.05; }
+.feature-card:hover { transform: translateY(-4px); z-index: 2; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+.feature-card-border {
+  position: absolute; inset: 0;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  transition: border-color var(--transition);
+}
+.feature-card:hover .feature-card-border { border-color: rgba(127,255,110,0.3); }
+
+.feature-icon {
+  width: 48px; height: 48px; margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+
+.feature-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  position: relative; z-index: 1;
+}
+.feature-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  position: relative; z-index: 1;
+}
+
+.feature-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-top: 12px;
+  letter-spacing: 1px;
+  position: relative; z-index: 1;
+}
+.badge-green { background: rgba(127,255,110,0.1); color: var(--accent); }
+.badge-blue { background: rgba(110,255,247,0.1); color: var(--accent2); }
+.badge-gold { background: rgba(255,215,0,0.1); color: var(--gold); }
+.badge-red { background: rgba(255,110,110,0.1); color: var(--accent3); }
+.badge-purple { background: rgba(155,89,182,0.1); color: var(--enchant); }
+.badge-orange { background: rgba(255,69,0,0.1); color: var(--nether); }
+
+/* ============================================================
+   HOW TO JOIN
+   ============================================================ */
+#join {
+  padding: 120px 40px;
+}
+#join-wrap {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+@media (max-width: 768px) { #join-wrap { grid-template-columns: 1fr; gap: 40px; } }
+
+.join-steps {
+  display: flex; flex-direction: column; gap: 0;
+  margin-top: 40px;
+}
+.join-step {
+  display: flex; gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: all var(--transition);
+}
+.join-step:last-child { border-bottom: none; }
+.join-step:hover .step-num { background: var(--accent); color: #000; }
+
+.step-num {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 13px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.step-content { flex: 1; }
+.step-title {
+  font-family: var(--font-display); font-size: 15px;
+  color: var(--text); margin-bottom: 6px;
+}
+.step-desc { font-size: 14px; color: var(--text-muted); }
+
+.join-visual {
+  position: relative;
+}
+
+.ip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.ip-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+.ip-card-label {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim); letter-spacing: 3px;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.ip-card-value {
+  font-family: var(--font-mono); font-size: 18px;
+  color: var(--accent2);
+  margin-bottom: 24px;
+  word-break: break-all;
+}
+
+.copy-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  cursor: pointer; font-size: 13px;
+  font-family: var(--font-mono);
+  transition: all var(--transition);
+  width: 100%;
+  justify-content: center;
+}
+.copy-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+.copy-btn.copied { border-color: var(--accent); color: var(--accent); background: rgba(127,255,110,0.05); }
+
+.version-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 20px;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--gold);
+  background: rgba(255,215,0,0.08);
+  border: 1px solid rgba(255,215,0,0.2);
+  padding: 8px 16px;
+  border-radius: 100px;
+  width: 100%;
+  justify-content: center;
+}
+.version-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 2s infinite; }
+
+/* ============================================================
+   WORLD FEATURES / BIOMES
+   ============================================================ */
+#world {
+  padding: 120px 0;
+  overflow: hidden;
+}
+#world-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+.biome-scroll {
+  display: flex; gap: 16px;
+  padding: 40px 40px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+.biome-scroll::-webkit-scrollbar { display: none; }
+.biome-scroll:active { cursor: grabbing; }
+
+.biome-card {
+  flex: 0 0 280px;
+  height: 360px;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border);
+}
+.biome-card:hover { transform: scale(1.03) translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+
+.biome-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px;
+}
+.biome-card-overworld .biome-bg { background: linear-gradient(180deg, #87CEEB 0%, #90EE90 60%, #556B2F 100%); }
+.biome-card-nether .biome-bg { background: linear-gradient(180deg, #1a0000 0%, #3d0000 40%, #8B0000 100%); }
+.biome-card-end .biome-bg { background: linear-gradient(180deg, #0d0d0d 0%, #1a0033 50%, #2d004d 100%); }
+.biome-card-ocean .biome-bg { background: linear-gradient(180deg, #006994 0%, #0077b6 50%, #003459 100%); }
+.biome-card-desert .biome-bg { background: linear-gradient(180deg, #f4a460 0%, #daa520 50%, #8B6914 100%); }
+.biome-card-forest .biome-bg { background: linear-gradient(180deg, #228B22 0%, #006400 50%, #1a3a1a 100%); }
+
+.biome-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
+}
+.biome-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px;
+}
+.biome-name {
+  font-family: var(--font-display);
+  font-size: 18px; color: white;
+  margin-bottom: 8px;
+}
+.biome-detail { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* ============================================================
+   NETHER HIGHWAY
+   ============================================================ */
+#nether {
+  padding: 120px 40px;
+  position: relative;
+  overflow: hidden;
+}
+#nether-wrap { max-width: 1200px; margin: 0 auto; }
+
+.nether-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(139,0,0,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.highway-visual {
+  background: var(--surface);
+  border: 1px solid rgba(255,69,0,0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.highway-visual::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--nether), #ff8c00, var(--nether));
+  animation: shimmer 2s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.highway-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+}
+@media (max-width: 768px) { .highway-grid { grid-template-columns: 1fr; } }
+
+.highway-stat {
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.highway-stat-icon {
+  width: 44px; height: 44px;
+  background: rgba(255,69,0,0.1);
+  border: 1px solid rgba(255,69,0,0.3);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.highway-stat-value {
+  font-family: var(--font-display); font-size: 24px;
+  color: var(--nether); line-height: 1;
+  margin-bottom: 4px;
+}
+.highway-stat-label { font-size: 13px; color: var(--text-muted); }
+
+/* ============================================================
+   NEWS / EVENTS
+   ============================================================ */
+#news { padding: 120px 40px; }
+#news-wrap { max-width: 1200px; margin: 0 auto; }
+
+.news-grid {
+  display: grid; grid-template-columns: 2fr 1fr;
+  gap: 24px; margin-top: 60px;
+}
+@media (max-width: 768px) { .news-grid { grid-template-columns: 1fr; } }
+
+.news-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.news-card:hover { transform: translateY(-4px); border-color: rgba(127,255,110,0.2); }
+.news-card:hover .news-card-inner { box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+.news-card-header {
+  height: 180px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px; overflow: hidden;
+}
+.news-featured .news-card-header { height: 240px; font-size: 80px; }
+
+.news-card-body { padding: 24px; }
+.news-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.news-title {
+  font-family: var(--font-display); font-size: 16px;
+  color: var(--text); line-height: 1.4; margin-bottom: 10px;
+}
+.news-featured .news-title { font-size: 20px; }
+.news-excerpt { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.news-date { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-top: 16px; }
+
+.news-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.news-mini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.news-mini:hover { border-color: rgba(127,255,110,0.2); transform: translateX(4px); }
+.news-mini .news-title { font-size: 14px; margin-bottom: 8px; }
+.news-mini .news-tag { font-size: 9px; margin-bottom: 8px; }
+
+/* ============================================================
+   PLAYER LEADERBOARD (easter egg teaser)
+   ============================================================ */
+#players { padding: 120px 40px; }
+#players-wrap { max-width: 1200px; margin: 0 auto; }
+
+.leaderboard {
+  margin-top: 60px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.leaderboard-header {
+  display: grid; grid-template-columns: 60px 1fr 100px 100px 100px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase;
+}
+.leaderboard-row {
+  display: grid; grid-template-columns: 60px 1fr 100px 100px 100px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  transition: background var(--transition);
+  cursor: default;
+}
+.leaderboard-row:last-child { border-bottom: none; }
+.leaderboard-row:hover { background: var(--surface2); }
+.leaderboard-row:nth-child(1) .lb-rank { color: var(--gold); }
+.leaderboard-row:nth-child(2) .lb-rank { color: #c0c0c0; }
+.leaderboard-row:nth-child(3) .lb-rank { color: #cd7f32; }
+
+.lb-rank { font-family: var(--font-display); font-size: 16px; }
+.lb-player { display: flex; align-items: center; gap: 12px; }
+.lb-avatar {
+  width: 32px; height: 32px; border-radius: 4px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  border: 1px solid var(--border);
+}
+.lb-name { font-family: var(--font-display); font-size: 14px; color: var(--text); }
+.lb-value { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .leaderboard-header, .leaderboard-row { grid-template-columns: 40px 1fr 80px; }
+  .leaderboard-header :nth-child(n+4), .leaderboard-row :nth-child(n+4) { display: none; }
+}
+
+/* ============================================================
+   CTA SECTION
+   ============================================================ */
+#cta {
+  padding: 100px 40px;
+  text-align: center;
+}
+.cta-wrap {
+  max-width: 700px; margin: 0 auto;
+  position: relative;
+}
+.cta-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(127,255,110,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  animation: ctaGlow 4s ease-in-out infinite;
+}
+@keyframes ctaGlow { 0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.2)} }
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1; margin-bottom: 20px;
+  color: var(--text); position: relative;
+}
+.cta-desc { font-size: 17px; color: var(--text-muted); margin-bottom: 40px; position: relative; }
+.cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+.btn-discord {
+  font-family: var(--font-display);
+  font-size: 13px;
+  background: #5865F2;
+  color: white;
+  border: none; padding: 14px 32px;
+  border-radius: var(--radius);
+  cursor: pointer; letter-spacing: 1px;
+  transition: all var(--transition);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-discord:hover { background: #4752c4; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(88,101,242,0.4); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 60px 40px 30px;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px; margin-bottom: 60px;
+}
+@media (max-width: 768px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
+@media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+
+.footer-brand { }
+.footer-logo {
+  font-family: var(--font-display); font-size: 18px;
+  color: var(--accent); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.footer-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.6; max-width: 250px; }
+
+.footer-col-title {
+  font-family: var(--font-display); font-size: 12px;
+  color: var(--text); letter-spacing: 1px; margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a {
+  font-size: 14px; color: var(--text-muted);
+  text-decoration: none; transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--accent); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
+.footer-version {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-dim);
+  display: flex; align-items: center; gap: 8px;
+}
+.online-dot {
+  width: 6px; height: 6px;
+  background: var(--accent); border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+/* ============================================================
+   EASTER EGG
+   ============================================================ */
+#easter-egg {
+  position: fixed; bottom: 30px; right: 30px;
+  z-index: 900;
+  width: 48px; height: 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; cursor: pointer;
+  transition: all var(--transition);
+  opacity: 0;
+  transform: scale(0);
+}
+#easter-egg.visible {
+  opacity: 1; transform: scale(1);
+  animation: eggPulse 3s ease-in-out infinite;
+}
+#easter-egg:hover { transform: scale(1.1) rotate(15deg); border-color: var(--gold); }
+@keyframes eggPulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0)} 50%{box-shadow:0 0 0 6px rgba(255,215,0,0.2)} }
+
+#egg-modal {
+  position: fixed; inset: 0;
+  z-index: 9998;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+}
+#egg-modal.open { opacity: 1; pointer-events: all; }
+.egg-content {
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  max-width: 480px; width: 90%;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform var(--transition);
+}
+#egg-modal.open .egg-content { transform: scale(1); }
+.egg-emoji { font-size: 60px; margin-bottom: 16px; }
+.egg-title { font-family: var(--font-display); font-size: 20px; color: var(--gold); margin-bottom: 12px; }
+.egg-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+.egg-code {
+  font-family: var(--font-mono); font-size: 20px;
+  color: var(--accent); background: var(--bg);
+  border: 1px solid var(--border); padding: 12px 24px;
+  border-radius: var(--radius); margin-bottom: 20px;
+  letter-spacing: 4px;
+}
+.egg-close {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text-muted); padding: 8px 20px;
+  border-radius: var(--radius); cursor: pointer; font-size: 13px;
+  transition: all var(--transition); font-family: var(--font-mono);
+}
+.egg-close:hover { border-color: var(--accent3); color: var(--accent3); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+#toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  z-index: 9999;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono); font-size: 13px;
+  padding: 10px 24px; border-radius: 100px;
+  opacity: 0; pointer-events: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.section-divider {
+  width: 100%; height: 1px;
+  background: var(--border);
+  max-width: 1200px; margin: 0 auto;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+::selection { background: rgba(127,255,110,0.2); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor" role="presentation"></div>
+<div id="cursor-trail" role="presentation"></div>
+
+<!-- Particles -->
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- Preloader -->
+<div id="preloader" role="status" aria-label="Betöltés...">
+  <div class="preloader-blocks" aria-hidden="true">
+    <div class="preloader-block"></div>
+    <div class="preloader-block"></div>
+    <div class="preloader-block"></div>
+    <div class="preloader-block"></div>
+    <div class="preloader-block"></div>
+  </div>
+  <div class="preloader-bar"><div class="preloader-bar-fill" id="loader-bar"></div></div>
+  <div class="preloader-text">LOADING WORLD...</div>
+</div>
+
+<!-- Easter Egg Button -->
+<button id="easter-egg" aria-label="Titkos tartalom">🥚</button>
+
+<!-- Easter Egg Modal -->
+<div id="egg-modal" role="dialog" aria-modal="true" aria-labelledby="egg-title">
+  <div class="egg-content">
+    <div class="egg-emoji">🎉</div>
+    <div class="egg-title" id="egg-title">Megtaláltad a titkos tojást!</div>
+    <p class="egg-text">Gratulálunk! Te vagy az egyik legjobb felfedező. Használd ezt a kódot a szerveren és kapsz egy kis meglepetést!</p>
+    <div class="egg-code">KMK.SMP</div>
+    <p class="egg-text" style="font-size:12px;color:var(--text-dim)">/redeem KMK.SMP a szerveren</p>
+    <button class="egg-close" onclick="closeEgg()">Bezárás</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" role="alert" aria-live="polite">✓ IP vágólapra másolva!</div>
+
+<!-- Navigation -->
+<nav id="navbar" role="navigation" aria-label="Főmenü">
+  <a href="#" class="nav-logo" aria-label="KMK SMP - Főoldal">
+    <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <rect x="2" y="2" width="10" height="10" fill="#4caf50" rx="1"/>
+      <rect x="16" y="2" width="10" height="10" fill="#795548" rx="1"/>
+      <rect x="2" y="16" width="10" height="10" fill="#9e9e9e" rx="1"/>
+      <rect x="16" y="16" width="10" height="10" fill="#2196f3" rx="1"/>
+    </svg>
+    <span>KMK SMP</span>
+    <span class="nav-logo-glow" aria-hidden="true"></span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#info" aria-label="Infó">Infó</a></li>
+    <li><a href="#join" aria-label="Csatlakozás">Csatlakozás</a></li>
+    <li><a href="https://discord.gg/p8BCc2dhvm" target="_blank" aria-label="Discord">Discord</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Téma váltás">
+      <svg id="theme-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 12a4 4 0 100-8 4 4 0 000 8zm0-10a1 1 0 100-2 1 1 0 000 2zm0 12a1 1 0 100 2 1 1 0 000-2zm-7-5a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM2.93 4.34a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm8.5 8.5a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm0-11.21a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41zM4.34 13.07a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41z"/>
+      </svg>
+    </button>
+    <a href="#cta" class="btn-join-nav" aria-label="Csatlakozás a szerverhez">
+      ⚔ JOIN NOW
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menü megnyitás" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-labelledby="hero-title">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating blocks -->
+  <div class="floating-block" style="left:5%;background:#4caf50;animation-duration:15s;animation-delay:0s"></div>
+  <div class="floating-block" style="left:15%;background:#795548;animation-duration:18s;animation-delay:2s"></div>
+  <div class="floating-block" style="left:30%;background:#ff9800;animation-duration:12s;animation-delay:5s"></div>
+  <div class="floating-block" style="left:50%;background:#9e9e9e;animation-duration:20s;animation-delay:1s"></div>
+  <div class="floating-block" style="left:65%;background:#2196f3;animation-duration:16s;animation-delay:7s"></div>
+  <div class="floating-block" style="left:80%;background:#9c27b0;animation-duration:14s;animation-delay:3s"></div>
+  <div class="floating-block" style="left:92%;background:#ffd700;animation-duration:17s;animation-delay:9s"></div>
+  <div class="floating-block" style="left:40%;background:#f44336;animation-duration:19s;animation-delay:4s"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow" role="text">
+      Minecraft SMP Szerver — 1.21.1
+    </div>
+
+    <h1 class="hero-title" id="hero-title">
+      <span class="line1">KÁROLYI</span>
+      <span class="line2"><span class="word-emelet">KOLI</span> SMP</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      A Károlyi Mihály Kollégium saját Minecraft szervere. Nincs szabály, nincs korlátozás — csak te és a világ. 24/7, mindenki számára.
+    </p>
+
+    <div class="hero-ip" onclick="copyIP()" role="button" tabindex="0" aria-label="Szerver IP másolása: here-counters.gl.joinmc.link" onkeypress="if(event.key==='Enter')copyIP()">
+      <span class="hero-ip-label">SERVER IP</span>
+      <span id="hero-ip-text">here-counters.gl.joinmc.link</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+        <path d="M5 0H13C13.6 0 14 .4 14 1V9C14 9.6 13.6 10 13 10H12V11H13C14.1 11 15 10.1 15 9V1C15 -.1 14.1-1 13-1H5C3.9-1 3 -.1 3 1V2H4V1C4 .4 4.4 0 5 0z" transform="translate(-1 1)"/>
+        <rect x="0" y="3" width="10" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#join" class="btn-primary" aria-label="Csatlakozás útmutatója">
+        <span>⚔</span> Csatlakozás
+      </a>
+      <a href="https://discord.gg/p8BCc2dhvm" target="_blank" class="btn-secondary" aria-label="Discord szerver">
+        💬 Discord
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div id="stats-bar" role="region" aria-label="Szerver statisztikák">
+  <div class="stat-item">
+    <div class="stat-value" data-count="1">1</div>
+    <div class="stat-label">Aktív Szerver</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">100</div>
+    <div class="stat-label">Max Férőhely</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">1.21.1</div>
+    <div class="stat-label">Verzió</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">∞</div>
+    <div class="stat-label">Kaland</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">24/7</div>
+    <div class="stat-label">Uptime</div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- FEATURES -->
+<div id="info">
+<div id="features-wrap">
+  <div class="section-tag reveal">Infó</div>
+  <h2 class="section-title reveal reveal-delay-1">Egy koli,<br>egy szerver</h2>
+  <p class="section-desc reveal reveal-delay-2">A KMK SMP az egész kollégium szervere. Vanilla survival, nincsenek szabályok, mindenki játszhat.</p>
+
+  <div class="features-grid">
+
+    <!-- Feature 1 -->
+    <article class="feature-card reveal" aria-labelledby="feat1-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="32" height="32" rx="4" fill="#4caf50"/>
+          <rect x="14" y="14" width="8" height="8" fill="#81c784"/>
+          <rect x="26" y="14" width="8" height="8" fill="#81c784"/>
+          <rect x="14" y="26" width="8" height="8" fill="#81c784"/>
+          <rect x="26" y="26" width="8" height="8" fill="#81c784"/>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat1-title">Nincsenek Szabályok</h3>
+      <p class="feature-desc">Nincs moderáció, nincs tiltás, nincs korlátozás. Csinálj amit akarsz — ez a te játékod.</p>
+      <span class="feature-badge badge-green">✅ SZABAD</span>
+    </article>
+
+    <!-- Feature 2 -->
+    <article class="feature-card reveal reveal-delay-1" aria-labelledby="feat2-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="16" r="8" fill="#ffd700"/>
+          <rect x="10" y="28" width="28" height="12" rx="3" fill="#ffd700" opacity="0.7"/>
+          <text x="24" y="38" text-anchor="middle" font-size="8" fill="#000" font-family="monospace">100</text>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat2-title">100 Férőhely</h3>
+      <p class="feature-desc">Az egész koli belefér. 100 slot, Java Edition, bárki csatlakozhat a kollégiumból.</p>
+      <span class="feature-badge badge-gold">👥 100 SLOT</span>
+    </article>
+
+    <!-- Feature 3 -->
+    <article class="feature-card reveal reveal-delay-2" aria-labelledby="feat3-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <polygon points="24,4 30,18 44,18 33,28 37,42 24,33 11,42 15,28 4,18 18,18" fill="#ffd700" stroke="#ffb300" stroke-width="1"/>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat3-title">24/7 Online</h3>
+      <p class="feature-desc">A szerver folyamatosan fut, leállás nélkül. Éjjel-nappal elérhető — csatlakozz bármikor.</p>
+      <span class="feature-badge badge-gold">⏰ 24/7</span>
+    </article>
+
+    <!-- Feature 4 -->
+    <article class="feature-card reveal" aria-labelledby="feat4-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="18" fill="#5865F2" opacity="0.2"/>
+          <circle cx="24" cy="24" r="14" fill="#5865F2"/>
+          <path d="M18 22c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v6l-3-2h-7c-1.1 0-2-.9-2-2v-2z" fill="white"/>
+          <circle cx="20" cy="22" r="1" fill="#5865F2"/>
+          <circle cx="24" cy="22" r="1" fill="#5865F2"/>
+          <circle cx="28" cy="22" r="1" fill="#5865F2"/>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat4-title">Discord Közösség</h3>
+      <p class="feature-desc">Van egy Discord szerver a közösségnek. Koordinálj, tervezz, chat-elj a kollégiumi játékosokkal.</p>
+      <span class="feature-badge badge-purple">💬 DISCORD</span>
+    </article>
+
+    <!-- Feature 5 -->
+    <article class="feature-card reveal reveal-delay-1" aria-labelledby="feat5-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="8" width="32" height="32" rx="4" fill="#795548"/>
+          <rect x="14" y="14" width="8" height="8" fill="#4caf50" rx="1"/>
+          <rect x="26" y="14" width="8" height="8" fill="#9e9e9e" rx="1"/>
+          <rect x="14" y="26" width="8" height="8" fill="#2196f3" rx="1"/>
+          <rect x="26" y="26" width="8" height="8" fill="#ff9800" rx="1"/>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat5-title">Vanilla Survival</h3>
+      <p class="feature-desc">Semmilyen mod vagy plugin nem változtatja meg az alapjátékot. Tiszta, eredeti Minecraft élmény.</p>
+      <span class="feature-badge badge-green">🌿 VANILLA</span>
+    </article>
+
+    <!-- Feature 6 -->
+    <article class="feature-card reveal reveal-delay-2" aria-labelledby="feat6-title">
+      <div class="feature-card-border"></div>
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="16" cy="20" r="8" fill="#6efff7" opacity="0.6"/>
+          <circle cx="28" cy="24" r="8" fill="#7fff6e" opacity="0.6"/>
+          <circle cx="22" cy="16" r="8" fill="#ff6e6e" opacity="0.6"/>
+        </svg>
+      </div>
+      <h3 class="feature-name" id="feat6-title">Kollégiumi Közösség</h3>
+      <p class="feature-desc">Csak KMK-sok. Ismered a szomszédjaidat? Valószínűleg velük játszol majd a szerveren is.</p>
+      <span class="feature-badge badge-blue">🏠 KMK</span>
+    </article>
+
+  </div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HOW TO JOIN -->
+<div id="join">
+<div id="join-wrap">
+  <div>
+    <div class="section-tag reveal">Csatlakozás</div>
+    <h2 class="section-title reveal reveal-delay-1">3 lépés és<br>már bent vagy</h2>
+    <p class="section-desc reveal reveal-delay-2">Minecraft Java Edition szükséges. A szerver 1.21.1-es verziót futtat.</p>
+
+    <div class="join-steps">
+      <div class="join-step reveal">
+        <div class="step-num" aria-hidden="true">1</div>
+        <div class="step-content">
+          <div class="step-title">Nyisd meg a Minecraftot</div>
+          <div class="step-desc">Indítsd el a Minecraft Java Edition-t (1.21.1 verzió szükséges)</div>
+        </div>
+      </div>
+      <div class="join-step reveal reveal-delay-1">
+        <div class="step-num" aria-hidden="true">2</div>
+        <div class="step-content">
+          <div class="step-title">Multiplayer → Add Server</div>
+          <div class="step-desc">Menj a Multiplayer menübe, kattints az "Add Server" gombra</div>
+        </div>
+      </div>
+      <div class="join-step reveal reveal-delay-2">
+        <div class="step-num" aria-hidden="true">3</div>
+        <div class="step-content">
+          <div class="step-title">Add meg az IP-t</div>
+          <div class="step-desc">Illeszd be a szerver IP-jét és csatlakozz!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="join-visual reveal reveal-delay-2">
+    <div class="ip-card">
+      <div class="ip-card-label">Szerver IP</div>
+      <div class="ip-card-value" id="ip-display">here-counters.gl.joinmc.link</div>
+      <button class="copy-btn" id="copy-btn" onclick="copyIP()" aria-label="IP másolása vágólapra">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+          <rect x="0" y="3" width="9" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M4 2V1a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+        <span id="copy-text">IP másolása</span>
+      </button>
+      <div class="version-badge">
+        <div class="version-dot"></div>
+        Minecraft Java 1.21.1
+      </div>
+      <a href="https://discord.gg/p8BCc2dhvm" target="_blank" class="btn-primary" style="margin-top:20px;display:inline-flex;width:100%;justify-content:center;text-decoration:none;">
+        💬 Discord szerver
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- CTA -->
+<section id="cta" aria-labelledby="cta-title">
+  <div class="cta-wrap">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <h2 class="cta-title reveal" id="cta-title">Készen állsz?<br><span style="color:var(--accent)">Csatlakozz most!</span></h2>
+    <p class="cta-desc reveal reveal-delay-1">A szerver 24/7 fut. Minden kollégiumi lakó szívesen fogadott — hozd el a szobatársaidat is!</p>
+    <div class="cta-actions reveal reveal-delay-2">
+      <a href="#join" class="btn-primary" aria-label="Csatlakozás az SMP szerverhez" onclick="copyIP()">
+        ⚔ Csatlakozás
+      </a>
+      <a href="https://discord.gg/p8BCc2dhvm" class="btn-discord" target="_blank" rel="noopener" aria-label="Discord szerver megnyitása">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/></svg>
+        Discord
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="10" height="10" fill="#4caf50" rx="1"/>
+            <rect x="16" y="2" width="10" height="10" fill="#795548" rx="1"/>
+            <rect x="2" y="16" width="10" height="10" fill="#9e9e9e" rx="1"/>
+            <rect x="16" y="16" width="10" height="10" fill="#2196f3" rx="1"/>
+          </svg>
+          KMK SMP
+        </div>
+        <p class="footer-tagline">A Károlyi Mihály Kollégium Minecraft szervere. Nincsenek szabályok — csak te és a világ. 1.21.1 Java Edition.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Szerver</div>
+        <ul class="footer-links">
+          <li><a href="#features">Funkciók</a></li>
+          
+          
+          <li><a href="#join">Csatlakozás</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Közösség</div>
+        <ul class="footer-links">
+          
+          
+          <li><a href="https://discord.gg/p8BCc2dhvm" target="_blank" rel="noopener">Discord</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Szerver Info</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="copyIP(); return false;">IP másolása</a></li>
+          <li><a href="#">Verzió: 1.21.1</a></li>
+          <li><a href="#">Java Edition</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 KMK SMP. Nem hivatalos Minecraft oldal.</div>
+      <div class="footer-version">
+        <div class="online-dot"></div>
+        here-counters.gl.joinmc.link · 1.21.1
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// PRELOADER
+// ============================================================
+(function() {
+  const bar = document.getElementById('loader-bar');
+  const preloader = document.getElementById('preloader');
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15 + 5;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      bar.style.width = '100%';
+      setTimeout(() => {
+        gsap.to(preloader, {
+          opacity: 0, duration: 0.6, ease: 'power2.inOut',
+          onComplete: () => { preloader.style.display = 'none'; initAnimations(); }
+        });
+      }, 400);
+    }
+    bar.style.width = progress + '%';
+  }, 120);
+})();
+
+// ============================================================
+// CURSOR
+// ============================================================
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+function animTrail() {
+  tx += (mx - tx) * 0.15; ty += (my - ty) * 0.15;
+  trail.style.left = tx + 'px'; trail.style.top = ty + 'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+// ============================================================
+// PARTICLES
+// ============================================================
+const pCanvas = document.getElementById('particles-canvas');
+const pCtx = pCanvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  pCanvas.width = window.innerWidth;
+  pCanvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const COLORS = ['#4caf50','#795548','#9e9e9e','#2196f3','#ff9800','#9c27b0'];
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    size: Math.random() * 4 + 2,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    alpha: Math.random() * 0.5 + 0.1
+  });
+}
+
+function drawParticles() {
+  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = pCanvas.width;
+    if (p.x > pCanvas.width) p.x = 0;
+    if (p.y < 0) p.y = pCanvas.height;
+    if (p.y > pCanvas.height) p.y = 0;
+    pCtx.save();
+    pCtx.globalAlpha = p.alpha;
+    pCtx.fillStyle = p.color;
+    pCtx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+    pCtx.restore();
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ============================================================
+// HERO CANVAS — 3D-LIKE MINECRAFT GRID
+// ============================================================
+const heroCanvas = document.getElementById('hero-canvas');
+const hCtx = heroCanvas.getContext('2d');
+
+function resizeHero() {
+  heroCanvas.width = window.innerWidth;
+  heroCanvas.height = window.innerHeight;
+}
+resizeHero();
+window.addEventListener('resize', resizeHero);
+
+const blockTypes = [
+  { top: '#4caf50', side: '#388e3c', front: '#2e7d32' }, // grass
+  { top: '#795548', side: '#5d4037', front: '#4e342e' }, // dirt
+  { top: '#9e9e9e', side: '#757575', front: '#616161' }, // stone
+  { top: '#2196f3', side: '#1565c0', front: '#0d47a1' }, // water
+  { top: '#ff9800', side: '#e65100', front: '#bf360c' }, // lava
+  { top: '#ffd700', side: '#f57f17', front: '#e65100' }, // gold
+];
+
+let heroBlocks = [];
+function initHeroBlocks() {
+  heroBlocks = [];
+  const cols = Math.ceil(window.innerWidth / 60) + 2;
+  const rows = 5;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const type = blockTypes[Math.floor(Math.random() * blockTypes.length)];
+      heroBlocks.push({
+        col: c, row: r,
+        x: c * 60 - 30,
+        y: window.innerHeight * 0.7 + r * 20 - (r * 40),
+        blockSize: 40,
+        type,
+        offset: Math.random() * Math.PI * 2,
+        speed: 0.3 + Math.random() * 0.3
+      });
+    }
+  }
+}
+initHeroBlocks();
+window.addEventListener('resize', initHeroBlocks);
+
+let heroTime = 0;
+let heroMouseX = 0, heroMouseY = 0;
+heroCanvas.addEventListener('mousemove', e => { heroMouseX = e.clientX; heroMouseY = e.clientY; });
+
+function drawBlock3D(ctx, x, y, size, type, highlight) {
+  const hs = size * 0.5;
+  const qs = size * 0.25;
+  const alpha = highlight ? 1 : 0.7;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // Top face
+  ctx.beginPath();
+  ctx.moveTo(x, y - hs);
+  ctx.lineTo(x + hs, y - qs);
+  ctx.lineTo(x + hs, y + qs - size * 0.5);
+  ctx.lineTo(x, y);
+  ctx.closePath();
+  ctx.fillStyle = type.top;
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  // Left face
+  ctx.beginPath();
+  ctx.moveTo(x - hs, y - qs);
+  ctx.lineTo(x, y - hs);
+  ctx.lineTo(x, y);
+  ctx.lineTo(x - hs, y + qs);
+  ctx.closePath();
+  ctx.fillStyle = type.side;
+  ctx.fill();
+  ctx.stroke();
+
+  // Right face
+  ctx.beginPath();
+  ctx.moveTo(x, y - hs);
+  ctx.lineTo(x + hs, y - qs);
+  ctx.lineTo(x + hs, y + qs);
+  ctx.lineTo(x, y);
+  ctx.closePath();
+  ctx.fillStyle = type.front;
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+function animHero() {
+  heroTime += 0.008;
+  hCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+  // Gradient background
+  const grad = hCtx.createLinearGradient(0, 0, 0, heroCanvas.height);
+  const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+  if (isDark) {
+    grad.addColorStop(0, 'rgba(5,5,15,0)');
+    grad.addColorStop(1, 'rgba(5,5,15,0.6)');
+  } else {
+    grad.addColorStop(0, 'rgba(240,240,248,0)');
+    grad.addColorStop(1, 'rgba(240,240,248,0.6)');
+  }
+
+  heroBlocks.forEach(b => {
+    const wave = Math.sin(heroTime * b.speed + b.offset) * 8;
+    const mx_effect = (heroMouseX / window.innerWidth - 0.5) * 15;
+    const my_effect = (heroMouseY / window.innerHeight - 0.5) * 8;
+    const bx = b.x + mx_effect;
+    const by = b.y + wave + my_effect;
+    const size = b.blockSize;
+    drawBlock3D(hCtx, bx + size/2, by, size, b.type, false);
+  });
+
+  hCtx.fillStyle = grad;
+  hCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+
+  requestAnimationFrame(animHero);
+}
+
+// ============================================================
+// MAIN INIT
+// ============================================================
+function initAnimations() {
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+  // Hero entrance
+  const tl = gsap.timeline();
+  tl.from('.hero-eyebrow', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' })
+    .from('.hero-title .line1', { y: 60, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+    .from('.hero-title .line2', { y: 60, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+    .from('.hero-subtitle', { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+    .from('.hero-ip', { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+    .from('.hero-actions', { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+    .from('#stats-bar .stat-item', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.2');
+
+  animHero();
+
+  // Scroll reveals
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Parallax on hero
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent && scrollY < window.innerHeight) {
+      heroContent.style.transform = `translateY(${scrollY * 0.4}px)`;
+      heroContent.style.opacity = 1 - scrollY / (window.innerHeight * 0.7);
+    }
+  });
+
+  // Easter egg reveal after 30s or scrolling 80%
+  setTimeout(() => {
+    const egg = document.getElementById('easter-egg');
+    egg.classList.add('visible');
+  }, 15000);
+
+  window.addEventListener('scroll', () => {
+    const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    if (scrollPercent > 0.8) {
+      document.getElementById('easter-egg').classList.add('visible');
+    }
+  });
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  hamburger.classList.toggle('active', open);
+  hamburger.setAttribute('aria-expanded', open);
+});
+
+// Close mobile menu on link click
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// ============================================================
+// THEME TOGGLE
+// ============================================================
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+
+// Auto detect
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (!prefersDark) document.documentElement.setAttribute('data-theme', 'light');
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  // Update icon
+  themeIcon.innerHTML = next === 'dark'
+    ? '<path d="M8 12a4 4 0 100-8 4 4 0 000 8zm0-10a1 1 0 100-2 1 1 0 000 2zm0 12a1 1 0 100 2 1 1 0 000-2zm-7-5a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM2.93 4.34a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm8.5 8.5a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm0-11.21a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41zM4.34 13.07a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41z"/>'
+    : '<path d="M6 .278a.768.768 0 01.08.858 7.208 7.208 0 00-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 01.81.316.733.733 0 01-.031.893A8.349 8.349 0 018.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 016 .278z"/>';
+});
+
+// ============================================================
+// COPY IP
+// ============================================================
+function copyIP() {
+  const ip = 'here-counters.gl.joinmc.link';
+  navigator.clipboard.writeText(ip).then(() => {
+    showToast('✓ IP vágólapra másolva!');
+    const btn = document.getElementById('copy-btn');
+    const txt = document.getElementById('copy-text');
+    if (btn && txt) {
+      btn.classList.add('copied');
+      txt.textContent = 'Másolva!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        txt.textContent = 'IP másolása';
+      }, 2500);
+    }
+  }).catch(() => {
+    showToast('IP: here-counters.gl.joinmc.link');
+  });
+}
+window.copyIP = copyIP;
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Biome scroll removed
+
+// ============================================================
+// EASTER EGG
+// ============================================================
+document.getElementById('easter-egg').addEventListener('click', () => {
+  document.getElementById('egg-modal').classList.add('open');
+});
+function closeEgg() {
+  document.getElementById('egg-modal').classList.remove('open');
+}
+window.closeEgg = closeEgg;
+document.getElementById('egg-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('egg-modal')) closeEgg();
+});
+
+// Konami code easter egg
+let konamiCode = [];
+const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+document.addEventListener('keydown', e => {
+  konamiCode.push(e.key);
+  if (konamiCode.length > 10) konamiCode.shift();
+  if (JSON.stringify(konamiCode) === JSON.stringify(konami)) {
+    document.getElementById('egg-modal').classList.add('open');
+    konamiCode = [];
+  }
+});
+
+// Keyboard navigation support
+document.querySelectorAll('[tabindex="0"]').forEach(el => {
+  el.addEventListener('keypress', e => { if (e.key === 'Enter' || e.key === ' ') el.click(); });
+});
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KMK SMP — Minecraft 1.21.11</title>
-<meta name="description" content="Csatlakozz a KMK SMP Minecraft szerveréhez! IP: here-counters.gl.joinmc.link | Verzió: 1.21.11">
+<meta name="description" content="Csatlakozz a KMK SMP Minecraft szerveréhez! IP: here-counters.gl.joinmc.link | Verzió: 1.21.111">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,6 +71,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none;
+  visibility: hidden;
 }
 
 /* ============================================================
@@ -1179,7 +1180,7 @@ footer {
 <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
 <!-- Preloader -->
-<div id="preloader" role="status" aria-label="Betöltés...">
+<div id="preloader" role="status" aria-label="Betöltés..." style="visibility:visible">
   <div class="preloader-blocks" aria-hidden="true">
     <div class="preloader-block"></div>
     <div class="preloader-block"></div>
@@ -1299,8 +1300,8 @@ footer {
 <!-- STATS BAR -->
 <div id="stats-bar" role="region" aria-label="Szerver statisztikák">
   <div class="stat-item">
-    <div class="stat-value" data-count="1">1</div>
-    <div class="stat-label">Aktív Szerver</div>
+    <div class="stat-value" id="stat-online">—</div>
+    <div class="stat-label">Online Most</div>
   </div>
   <div class="stat-item">
     <div class="stat-value">100</div>
@@ -1490,6 +1491,18 @@ footer {
 
 <div class="section-divider"></div>
 
+<!-- PLAYERS ONLINE -->
+<div id="players-online" style="padding:80px 40px; max-width:1200px; margin:0 auto;">
+  <div class="section-tag reveal">Élő adat</div>
+  <h2 class="section-title reveal reveal-delay-1">Jelenleg<br>online játékosok</h2>
+  <p class="section-desc reveal reveal-delay-2" id="server-status-text">Szerver állapot betöltése...</p>
+  <div id="player-list-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap:12px; margin-top:32px;"></div>
+  <p id="no-players-msg" style="display:none; color:var(--text-dim); font-family:var(--font-mono); font-size:13px;">Nincs elérhető játékos lista a szervertől.</p>
+</div>
+
+
+<div class="section-divider"></div>
+
 <!-- CTA -->
 <section id="cta" aria-labelledby="cta-title">
   <div class="cta-wrap">
@@ -1545,7 +1558,7 @@ footer {
         <div class="footer-col-title">Szerver Info</div>
         <ul class="footer-links">
           <li><a href="#" onclick="copyIP(); return false;">IP másolása</a></li>
-          <li><a href="#">Verzió: 1.21.11</a></li>
+          <li><a href="#">Verzió: 1.21.111</a></li>
           <li><a href="#">Java Edition</a></li>
         </ul>
       </div>
@@ -1565,6 +1578,7 @@ footer {
 // PRELOADER
 // ============================================================
 (function() {
+  document.body.style.visibility = 'visible';
   const bar = document.getElementById('loader-bar');
   const preloader = document.getElementById('preloader');
   let progress = 0;
@@ -1870,6 +1884,80 @@ themeToggle.addEventListener('click', () => {
     ? '<path d="M8 12a4 4 0 100-8 4 4 0 000 8zm0-10a1 1 0 100-2 1 1 0 000 2zm0 12a1 1 0 100 2 1 1 0 000-2zm-7-5a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM2.93 4.34a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm8.5 8.5a1 1 0 101.41-1.41 1 1 0 00-1.41 1.41zm0-11.21a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41zM4.34 13.07a1 1 0 10-1.41-1.41 1 1 0 001.41 1.41z"/>'
     : '<path d="M6 .278a.768.768 0 01.08.858 7.208 7.208 0 00-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 01.81.316.733.733 0 01-.031.893A8.349 8.349 0 018.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 016 .278z"/>';
 });
+
+
+// ============================================================
+// MCSTATUS.IO — LIVE SERVER STATUS
+// ============================================================
+const MC_ADDRESS = 'here-counters.gl.joinmc.link';
+
+function renderPlayerIcon(name) {
+  return `<div style="
+    display:flex; align-items:center; gap:10px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:10px 14px;
+    transition:all var(--transition);
+  " onmouseover="this.style.borderColor='rgba(127,255,110,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="7" y="1" width="10" height="10" rx="2" fill="#7fff6e" opacity="0.8"/>
+      <rect x="4" y="13" width="16" height="10" rx="2" fill="#6efff7" opacity="0.7"/>
+      <rect x="4" y="13" width="6" height="10" rx="1" fill="#6efff7"/>
+      <rect x="14" y="13" width="6" height="10" rx="1" fill="#6efff7"/>
+    </svg>
+    <span style="font-family:var(--font-mono);font-size:12px;color:var(--text);letter-spacing:0.5px;">${name}</span>
+  </div>`;
+}
+
+async function fetchServerStatus() {
+  try {
+    const res = await fetch('https://api.mcstatus.io/v2/status/java/' + MC_ADDRESS);
+    const data = await res.json();
+
+    const statOnline = document.getElementById('stat-online');
+    const statusText = document.getElementById('server-status-text');
+    const grid = document.getElementById('player-list-grid');
+    const noPlayers = document.getElementById('no-players-msg');
+
+    if (data.online) {
+      const online = data.players.online;
+      const max = data.players.max;
+      if (statOnline) statOnline.textContent = online;
+      if (statusText) statusText.textContent = `A szerver ONLINE — ${online}/${max} játékos csatlakozva.`;
+
+      if (grid) {
+        const list = data.players && data.players.list && data.players.list.length > 0
+          ? data.players.list
+          : null;
+
+        if (list) {
+          grid.innerHTML = list.map(p => renderPlayerIcon(p.name_clean || p.name_raw || 'Ismeretlen')).join('');
+          if (noPlayers) noPlayers.style.display = 'none';
+        } else {
+          grid.innerHTML = '';
+          if (noPlayers) {
+            noPlayers.style.display = 'block';
+            noPlayers.textContent = online > 0
+              ? `${online} játékos online — a szerver elrejti a neveket.`
+              : 'Jelenleg nincs senki online.';
+          }
+        }
+      }
+    } else {
+      if (statOnline) statOnline.textContent = '✗';
+      if (statusText) statusText.textContent = 'A szerver jelenleg OFFLINE.';
+      if (grid) grid.innerHTML = '';
+      if (noPlayers) { noPlayers.style.display = 'block'; noPlayers.textContent = 'A szerver offline, nincs játékos adat.'; }
+    }
+  } catch (e) {
+    console.warn('mcstatus fetch hiba:', e);
+    const statOnline = document.getElementById('stat-online');
+    if (statOnline) statOnline.textContent = '?';
+  }
+}
+
+// Fetch immediately, then every 2 minutes
+fetchServerStatus();
+setInterval(fetchServerStatus, 120000);
 
 // ============================================================
 // COPY IP

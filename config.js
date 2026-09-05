@@ -7,7 +7,7 @@
 window.APP_CONFIG = {
   // A backend gyökér URL-je, "/api" nélkül vagy azzal, ahogy a backend-terv.md
   // előírja. Pl.: "https://karolyi-forum-api.onrender.com/api"
-  API_BASE_URL: "https://bind-referred-ooo-lots.trycloudflare.com/api",
+  API_BASE_URL: "https://0f57-160-114-6-171.ngrok-free.app/api",
 
   // Oldalankénti témák/hozzászólások száma
   PAGE_SIZE: 20,

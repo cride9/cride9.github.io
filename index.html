@@ -1,565 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<html lang="hu">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bálint Bartl | Junior Software Developer</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Tailwind (Assuming you have output.css generated, otherwise use CDN for testing) -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link href="css/output.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Károlyi Fórum</title>
+<meta name="description" content="A Károlyi Mihály Kollégium közösségi fóruma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="bg-black text-gray-300 antialiased overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#/" class="brand">
+      <span class="brand-mark">K</span>
+      <span class="brand-text">Károlyi Fórum</span>
+    </a>
 
-    <!-- Dynamic Background -->
-    <canvas id="canvas" class="fixed inset-0 w-full h-full z-[-1] opacity-80 pointer-events-none"></canvas>
+    <div class="header-search">
+      <input type="search" id="global-search" placeholder="Keresés a témák között…">
+    </div>
 
-    <!-- Floating Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 top-0 py-4">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold font-[Poppins] tracking-tighter text-white">
-                B<span class="text-indigo-500">.</span>Bartl
-            </a>
-            <div
-                class="hidden md:flex space-x-8 items-center bg-gray-900/50 backdrop-blur-md px-6 py-2 rounded-full border border-gray-800">
-                <a href="#about" class="text-sm font-medium hover:text-indigo-400 transition-colors">About</a>
-                <a href="#experience" class="text-sm font-medium hover:text-indigo-400 transition-colors">Experience</a>
-                <a href="#projects" class="text-sm font-medium hover:text-indigo-400 transition-colors">Projects</a>
-                <a href="#contact"
-                    class="px-4 py-1.5 rounded-full bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">Contact</a>
-            </div>
-            <!-- Mobile Menu Button (Simple version) -->
-            <button class="md:hidden text-gray-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-8 h-8">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-            </button>
-        </div>
+    <nav class="header-actions" id="header-actions">
+      <!-- betöltve app.js-ből: bejelentkezve / vendég állapot -->
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative z-10 flex h-screen min-h-[700px] flex-col items-center justify-center text-center px-4">
-        <!-- Social Floaters -->
-        <div class="absolute left-6 bottom-10 hidden lg:flex flex-col gap-6 text-gray-500" data-aos="fade-right">
-            <a href="https://github.com/YourUsername" target="_blank"
-                class="hover:text-indigo-400 hover:-translate-y-1 transition-all"><svg fill="currentColor"
-                    class="w-6 h-6" viewBox="0 0 24 24">
-                    <path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg></a>
-            <a href="https://linkedin.com" target="_blank"
-                class="hover:text-indigo-400 hover:-translate-y-1 transition-all"><svg fill="currentColor"
-                    class="w-6 h-6" viewBox="0 0 24 24">
-                    <path
-                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg></a>
-            <div class="h-20 w-[1px] bg-gray-700 ml-3"></div>
-        </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menü">☰</button>
+  </div>
+</header>
 
-        <div data-aos="fade-up" data-aos-duration="1000" class="max-w-4xl relative">
-            <!-- Decorative Glow behind text -->
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[100px] -z-10">
-            </div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-block">
+      <h2 class="sidebar-title">Kategóriák</h2>
+      <ul class="category-list" id="category-list">
+        <!-- betöltve app.js-ből -->
+      </ul>
+    </div>
+    <div class="sidebar-block sidebar-note">
+      <p>A Károlyi Mihály Kollégium hivatalos, hallgatók által moderált fóruma. Légy tényszerű, légy türelmes — ugyanabban a házban lakunk.</p>
+    </div>
+  </aside>
 
-            <h1 class="text-6xl md:text-8xl font-bold text-white tracking-tight mb-4">
-                Bálint <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600">Bartl</span>
-            </h1>
+  <main class="content" id="app">
+    <!-- útvonal szerinti nézet ide töltődik -->
+  </main>
+</div>
 
-            <div class="h-12 md:h-16 flex items-center justify-center">
-                <h2 class="text-2xl md:text-4xl font-semibold text-gray-300">
-                    I build <span id="typewriter-text" class="text-indigo-400"></span><span
-                        class="typewriter-cursor">|</span>
-                </h2>
-            </div>
+<footer class="site-footer">
+  <p>Károlyi Mihály Kollégium Fórum — a kollégium közösségének készült.</p>
+</footer>
 
-            <p class="mt-8 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                A passionate developer focusing on <span class="text-gray-200">C# and .NET</span>. I transform complex
-                problems into clean, efficient, and scalable code.
-            </p>
+<template id="tpl-topic-row">
+  <li class="topic-row">
+    <div class="topic-main">
+      <div class="topic-title-line">
+        <span class="pin-flag" hidden>Kitűzve</span>
+        <span class="lock-flag" hidden>Lezárva</span>
+        <a class="topic-title" href="#"></a>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-author"></span>
+        <span class="dot">·</span>
+        <span class="topic-category"></span>
+        <span class="dot">·</span>
+        <span class="topic-time"></span>
+      </div>
+    </div>
+    <div class="topic-stats">
+      <div class="stat">
+        <span class="stat-num topic-replies"></span>
+        <span class="stat-label">hozzászólás</span>
+      </div>
+    </div>
+  </li>
+</template>
 
-            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-                <a href="#projects"
-                    class="group relative px-8 py-4 bg-white text-black font-bold rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-                    <div
-                        class="absolute inset-0 w-full h-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-10 transition-opacity">
-                    </div>
-                    View My Work
-                </a>
-                <a href="#contact"
-                    class="px-8 py-4 rounded-xl border border-gray-700 hover:bg-gray-800 transition-all font-semibold hover:border-gray-500">
-                    Contact Me
-                </a>
-            </div>
-        </div>
+<template id="tpl-post">
+  <article class="post">
+    <div class="post-side">
+      <div class="avatar"></div>
+      <div class="post-author"></div>
+      <div class="post-role" hidden></div>
+    </div>
+    <div class="post-body">
+      <div class="post-meta">
+        <time class="post-time"></time>
+        <span class="post-edited" hidden>(szerkesztve)</span>
+      </div>
+      <div class="post-content"></div>
+      <div class="post-actions">
+        <button class="link-btn post-reply-btn">Válasz</button>
+        <button class="link-btn post-edit-btn" hidden>Szerkesztés</button>
+        <button class="link-btn post-delete-btn" hidden>Törlés</button>
+        <button class="link-btn post-report-btn">Jelentés</button>
+      </div>
+    </div>
+  </article>
+</template>
 
-        <a href="#about" class="absolute bottom-10 animate-bounce text-gray-500 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-        </a>
-    </header>
-
-    <main class="relative z-10">
-
-        <!-- About Section -->
-        <section id="about" class="section-padding">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div data-aos="fade-right">
-                        <div
-                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-500/30 text-indigo-400 text-sm font-medium mb-6">
-                            <span class="relative flex h-2 w-2">
-                                <span
-                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                            </span>
-                            Open to Work
-                        </div>
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Behind the <span
-                                class="gradient-text">Code</span></h2>
-                        <p class="text-gray-400 text-lg leading-relaxed mb-6">
-                            I am a Junior Software Developer and Computer Science student at the University of Szeged.
-                            While I have a formal education, my real strength comes from my hands-on experience with C#,
-                            .NET, and tackling real-world problems.
-                        </p>
-                        <p class="text-gray-400 text-lg leading-relaxed">
-                            I don't just write code; I care about architecture, performance, and the end-user
-                            experience. Whether it's debugging a critical memory leak or architecting a new feature, I
-                            enjoy the challenge.
-                        </p>
-                    </div>
-                    <div class="relative" data-aos="zoom-in transition-all">
-                        <!-- Abstract Code Visualization Card -->
-                        <div
-                            class="glass-card spotlight-card p-8 rotate-3 hover:rotate-0 transition-transform transition-all duration-500">
-                            <div class="flex items-center gap-2 mb-4 border-b border-gray-700 pb-4">
-                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                <span class="ml-auto text-xs text-gray-500">Developer.cs</span>
-                            </div>
-                            <div class="font-mono text-sm space-y-2">
-                                <p><span class="text-purple-400">class</span> <span
-                                        class="text-yellow-400">BalintBartl</span> : <span
-                                        class="text-yellow-400">Developer</span> {</p>
-                                <p class="pl-4"><span class="text-purple-400">public</span> <span
-                                        class="text-blue-400">string</span> Location = <span
-                                        class="text-green-400">"Szeged, Hungary"</span>;</p>
-                                <p class="pl-4"><span class="text-purple-400">public</span> <span
-                                        class="text-blue-400">string[]</span> Skills = {</p>
-                                <p class="pl-8"><span class="text-green-400">"C#"</span>, <span
-                                        class="text-green-400">".NET 8"</span>, <span class="text-green-400">"Problem
-                                        Solving"</span></p>
-                                <p class="pl-4">};</p>
-                                <p class="pl-4"><span class="text-purple-400">public void</span> <span
-                                        class="text-yellow-400">Code</span>() {</p>
-                                <p class="pl-8"><span class="text-gray-400">// Building the future...</span></p>
-                                <p class="pl-4">}</p>
-                                <p>}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Timeline -->
-        <section id="experience" class="section-padding bg-black/30 ">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Professional <span
-                            class="text-indigo-500">Journey</span></h2>
-                    <p class="text-gray-400">My path in the software industry so far.</p>
-                </div>
-
-                <div class="max-w-4xl mx-auto timeline-line relative pl-[38px] space-y-12">
-
-                    <!-- Item 1 -->
-                    <div class="relative group" data-aos="fade-left">
-                        <!-- Timeline Dot -->
-                        <div
-                            class="absolute -left-[43px] top-0 w-12 h-12 rounded-full bg-gray-900 border-2 border-indigo-500 flex items-center justify-center z-10 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                fill="#99a1af"
-                                class="w-6 h-6 text-gray-400 group-hover:text-indigo-400 transition-colors">
-                                <path
-                                    d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm0-80h640v-440H160v440Zm240-520h160v-80H400v80ZM160-200v-440 440Z" />
-                            </svg>
-                        </div>
-
-                        <div class="glass-card spotlight-card p-8 ml-4">
-                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Junior Software Developer</h3>
-                                    <p class="text-indigo-400 font-semibold">GriffSoft Informatikai Zrt.</p>
-                                </div>
-                                <span
-                                    class="mt-2 md:mt-0 px-3 py-1 bg-gray-800 rounded text-sm text-gray-400">Current</span>
-                            </div>
-                            <p class="text-gray-300 mb-6">
-                                Transitioned from foundational training to significant contributions on live production
-                                projects in an agile environment.
-                            </p>
-
-                            <!-- Achievement Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div
-                                    class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50 hover:bg-gray-800/60 transition-colors">
-                                    <h4 class="text-indigo-300 font-semibold mb-1">Bug Resolution</h4>
-                                    <p class="text-sm text-gray-400">Fixed critical GDI object leaks in WinForms apps.
-                                    </p>
-                                </div>
-                                <div
-                                    class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50 hover:bg-gray-800/60 transition-colors">
-                                    <h4 class="text-indigo-300 font-semibold mb-1">Race Conditions</h4>
-                                    <p class="text-sm text-gray-400">Prevented data duplication through thread-safe
-                                        logic.</p>
-                                </div>
-                                <div
-                                    class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50 hover:bg-gray-800/60 transition-colors">
-                                    <h4 class="text-indigo-300 font-semibold mb-1">Stability</h4>
-                                    <p class="text-sm text-gray-400">Fixed environment-specific DB config errors.</p>
-                                </div>
-                                <div
-                                    class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50 hover:bg-gray-800/60 transition-colors">
-                                    <h4 class="text-indigo-300 font-semibold mb-1">Refactoring</h4>
-                                    <p class="text-sm text-gray-400">Modernized legacy code and improved UX.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item 2 (Education as part of timeline for better flow) -->
-                    <div class="relative group" data-aos="fade-left" data-aos-delay="100">
-                        <div
-                            class="absolute -left-[43px] top-0 w-12 h-12 rounded-full bg-gray-900 border-2 border-gray-700 group-hover:border-indigo-500 transition-colors flex items-center justify-center z-10">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                fill="#99a1af">
-                                <path
-                                    d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z" />
-                            </svg>
-                        </div>
-                        <div class="glass-card spotlight-card p-6 ml-4">
-                            <h3 class="text-xl font-bold text-white">University of Szeged</h3>
-                            <p class="text-gray-400">BSc in Computer Science</p>
-                            <span class="text-sm text-gray-500">2024 – Present</span>
-                        </div>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="relative group" data-aos="fade-left" data-aos-delay="200">
-                        <div
-                            class="absolute -left-[43px] top-0 w-12 h-12 rounded-full bg-gray-900 border-2 border-gray-700 group-hover:border-indigo-500 transition-colors flex items-center justify-center z-10">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                fill="#99a1af">
-                                <path
-                                    d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
-                            </svg>
-                        </div>
-                        <div class="glass-card spotlight-card p-6 ml-4">
-                            <h3 class="text-xl font-bold text-white">Technician, Software Developer & Tester</h3>
-                            <p class="text-gray-400">Verebély László Technical School</p>
-                            <span class="text-sm text-gray-500">2019 – 2024</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonial (Distinct Look) -->
-        <section class="py-20 relative overflow-hidden">
-            <!-- Background Decoration -->
-            <div class="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-900 to-transparent">
-            </div>
-
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="max-w-4xl mx-auto text-center" data-aos="zoom-in">
-                    <svg class="w-12 h-12 text-indigo-500 mx-auto mb-6 opacity-50" fill="currentColor"
-                        viewBox="0 0 32 32" aria-hidden="true">
-                        <path
-                            d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                    <p class="text-2xl md:text-3xl font-light text-gray-200 italic leading-relaxed mb-8">
-                        "Bálint is an outstanding student... He quickly finds his footing, adapts to his environment...
-                        His learning curve is steep; he structures his acquired knowledge well and applies it
-                        effectively."
-                    </p>
-                    <div class="flex items-center justify-center gap-4">
-                        <div
-                            class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-xl">
-                            G</div>
-                        <div class="text-left">
-                            <div class="text-white font-semibold">Group Leader</div>
-                            <div class="text-indigo-400 text-sm">GriffSoft Informatikai Zrt.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section-padding">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16 px-4">
-                    <div data-aos="fade-right">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-2">Featured <span
-                                class="text-indigo-500">Work</span></h2>
-                        <p class="text-gray-400">Projects I've built in my free time.</p>
-                    </div>
-                    <a href="https://github.com"
-                        class="hidden md:inline-flex items-center gap-2 text-indigo-400 hover:text-white transition-colors mt-4 md:mt-0">
-                        View Github <span class="text-xl">&rarr;</span>
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="glass-card spotlight-card group flex flex-col h-full" data-aos="fade-up">
-                        <div
-                            class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500 border-b border-gray-700/50">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-16 h-16 text-indigo-500/50 group-hover:text-indigo-400 transition-colors"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                        </div>
-                        <div class="p-8 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
-                                C++ Anticheat Engine</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                                A specialized security application interacting with low-level system processes to detect
-                                and prevent unauthorized software injection.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">C++</span>
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">System
-                                    Security</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2 -->
-                    <div class="glass-card spotlight-card group flex flex-col h-full" data-aos="fade-up"
-                        data-aos-delay="100">
-                        <div
-                            class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500 border-b border-gray-700/50">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-16 h-16 text-indigo-500/50 group-hover:text-indigo-400 transition-colors"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <div class="p-8 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
-                                .NET 8 Desktop Tools</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                                A suite of utility applications built with clean architecture principles, focusing on
-                                high performance and intuitive UI.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">C#</span>
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">.NET
-                                    8</span>
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">WPF</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3 -->
-                    <div class="glass-card spotlight-card group flex flex-col h-full" data-aos="fade-up"
-                        data-aos-delay="200">
-                        <div
-                            class="h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500 border-b border-gray-700/50">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="w-16 h-16 text-indigo-500/50 group-hover:text-indigo-400 transition-colors"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                            </svg>
-                        </div>
-                        <div class="p-8 flex-1 flex flex-col">
-                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
-                                Business Web Solutions</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                                Full-stack web development for small businesses using modern PHP frameworks to deliver
-                                tailored digital presence.
-                            </p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">Laravel</span>
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">Tailwind</span>
-                                <span
-                                    class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full">MySQL</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section (Cleaned up Grid) -->
-        <section class="section-padding bg-black/30">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Tech <span
-                            class="text-indigo-500">Stack</span></h2>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto" data-aos="fade-up">
-                    <!-- Skill Items - Just adding a few examples, keep your full list -->
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">C#</span>
-                    </div>
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">.NET
-                            8</span>
-                    </div>
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">SQL</span>
-                    </div>
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">Azure</span>
-                    </div>
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">Git</span>
-                    </div>
-                    <div
-                        class="glass-card p-4 flex flex-col items-center justify-center hover:bg-gray-800 transition-colors group cursor-default">
-                        <span
-                            class="font-bold text-gray-300 group-hover:text-indigo-400 transition-colors">Laravel</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="border-t border-gray-800 bg-black pt-20 pb-10">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">Let's build something <span
-                    class="text-indigo-500">great</span>.</h2>
-            <p class="text-gray-400 mb-10 max-w-lg mx-auto">Open for new opportunities. Whether you have a question or
-                just want to say hi, I'll try my best to get back to you!</p>
-
-            <a href="mailto:bartlbalint80@gmail.com"
-                class="inline-block px-8 py-4 bg-white text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                Say Hello
-            </a>
-
-            <div class="mt-20 text-gray-600 text-sm">
-                &copy; 2025 Bálint Bartl. Crafted with Tailwind & ☕
-            </div>
-        </div>
-    </footer>
-
-    <!-- Background Script (Original) -->
-    <script type="module" src="js/background.js"></script>
-
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- MAIN SCRIPTS -->
-    <script>
-        // 1. Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true, // changed to true for cleaner UX
-            offset: 50
-        });
-
-        // 2. Navbar Blur Effect on Scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-blur');
-                navbar.classList.remove('py-4');
-                navbar.classList.add('py-2');
-            } else {
-                navbar.classList.remove('nav-blur');
-                navbar.classList.remove('py-2');
-                navbar.classList.add('py-4');
-            }
-        });
-
-        // 3. Spotlight Effect
-        // Updates CSS variables --mouse-x and --mouse-y based on mouse position relative to the card
-        const spotlightCards = document.querySelectorAll('.spotlight-card');
-        spotlightCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-
-        // 4. Typewriter Effect
-        const textElement = document.getElementById('typewriter-text');
-        const phrases = ["robust applications.", "clean code.", "user experiences.", ".NET solutions."];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 100;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-
-            if (isDeleting) {
-                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 50;
-            } else {
-                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 100;
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; // Pause at end
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500; // Pause before new word
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        document.addEventListener('DOMContentLoaded', type);
-    </script>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
 </body>
-
 </html>

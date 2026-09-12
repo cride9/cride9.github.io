@@ -14,22 +14,23 @@ export function makeGrowth(manifest:TreeManifest){
  vec3 transformed=front+(position-center)*radius;`;
  function apply<T extends THREE.Material>(material:T){material.onBeforeCompile=shader=>{Object.assign(shader.uniforms,uniforms);shader.vertexShader=declarations+'\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',transform);
  if(material instanceof THREE.MeshStandardMaterial){
- shader.vertexShader='varying vec3 vVein;varying float vFront;\n'+shader.vertexShader;
- shader.vertexShader=shader.vertexShader.replace('vec3 transformed=front+(position-center)*radius;','vec3 transformed=front+(position-center)*radius;vVein=vec3(uv.x,_u,_pathindex);vFront=g;');
- shader.fragmentShader='uniform float uTime;uniform float uEnergy;varying vec3 vVein;varying float vFront;\n'+shader.fragmentShader;
+ shader.vertexShader='varying vec3 vVein;varying float vFront;varying float vActive;\n'+shader.vertexShader;
+ shader.vertexShader=shader.vertexShader.replace('vec3 transformed=front+(position-center)*radius;','vec3 transformed=front+(position-center)*radius;vVein=vec3(uv.x,_u,_pathindex);vFront=g;vActive=step(.0001,times.y)*(1.-smoothstep(times.y-.004,times.y+.022,uProgress));');
+ shader.fragmentShader='uniform float uTime;uniform float uEnergy;varying vec3 vVein;varying float vFront;varying float vActive;\n'+shader.fragmentShader;
  shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
  float along=vVein.y;
  float winding=vVein.x*18.+sin(along*31.+vVein.z)*.36+sin(along*79.+vVein.z*2.)*.12;
  float vein=pow(max(0.,1.-abs(sin(winding*3.14159))),7.);
  float hairline=pow(max(0.,1.-abs(sin((winding*2.7+along*6.)*3.14159))),32.);
- float wake=exp(-abs(along-vFront+.065)*9.);
- float pulse=pow(.5+.5*sin(along*27.-uTime*2.6+vVein.z*.83),5.);
+ float behind=vFront-along;
+ float wake=exp(-pow((behind-.065)/.10,2.))*vActive;
+ float pulse=.85+.15*sin(along*74.-vFront*95.+vVein.z*.83);
  float formed=smoothstep(0.,.06,vFront-along);
- float fire=(vein*(.32+2.4*wake+1.1*pulse)+hairline*.19)*formed*uEnergy;
+ float fire=(vein*3.2+hairline*.65)*wake*pulse*formed*uEnergy;
  vec3 ember=mix(vec3(1.,.025,.001),vec3(1.,.19,.008),clamp(wake+vein*.3,0.,1.));
- diffuseColor.rgb*=1.-min(.48,vein*.55);totalEmissiveRadiance+=ember*fire*6.;`);
+ totalEmissiveRadiance+=ember*fire*6.;`);
  }
- };material.customProgramCacheKey=()=> 'living-tree-growth-fire-v2';return material;}
+ };material.customProgramCacheKey=()=> 'living-tree-growth-front-v3';return material;}
  return {uniforms,apply,dispose:()=>{atlas.dispose();clocks.dispose()}};
 }
 

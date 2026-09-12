@@ -36,7 +36,7 @@ function CameraDirector({progress,paused,reduced,onChapter,root,growth,anchorRef
   tracks.pos.getPoint(u,camera.position);tracks.target.getPoint(u,target);
   if(!mobile&&!reduced&&!paused){camera.position.x+=pointer.current.x*.10;camera.position.y-=pointer.current.y*.05;}
   camera.up.set(0,1,0);camera.lookAt(target);const pc=camera as THREE.PerspectiveCamera;pc.setFocalLength(THREE.MathUtils.lerp(a.lens,b.lens,t));pc.updateProjectionMatrix();
-  root.rotation.y=state.rotation;growth.uniforms.uProgress.value=state.growth;growth.uniforms.uEnergy.value=reduced?0:1;if(!paused&&!reduced)growth.uniforms.uTime.value+=Math.min(delta,.05);
+  root.rotation.y=state.rotation;growth.uniforms.uProgress.value=state.growth;growth.uniforms.uEnergy.value=reduced?0:smooth((p-.07)/.025);if(!paused&&!reduced)growth.uniforms.uTime.value+=Math.min(delta,.05);
   if(last.current!==state.chapter.id){last.current=state.chapter.id;onChapter(last.current);}
   const anchor=manifest.branches.find(x=>x.id===state.chapter.id);const el=anchorRef.current;
   if(el){if(anchor&&state.chapter.project&&!mobile){projected.set(...anchor.anchor).applyMatrix4(root.matrixWorld).project(camera);const x=(projected.x*.5+.5)*size.width,y=(-projected.y*.5+.5)*size.height;const show=projected.z<1&&projected.z>-1&&x>size.width*.36&&x<size.width-40&&y>100&&y<size.height-120;el.style.opacity=show?'1':'0';el.style.transform=`translate(${x}px,${y}px)`;}else el.style.opacity='0';}

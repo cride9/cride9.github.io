@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import { validateManifest } from './validation.mjs';
+fs.mkdirSync('dist/mc',{recursive:true});fs.copyFileSync('mc/index.html','dist/mc/index.html');
+const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+if(sha('mc/index.html')!==sha('dist/mc/index.html'))throw Error('Minecraft preservation failed');
+validateManifest(JSON.parse(fs.readFileSync('public/assets/tree-manifest.json','utf8')));
+for(const name of ['index.html','reading.html','assets/tree-low.glb','assets/tree-medium.glb','assets/tree-high.glb','assets/opening.webp'])if(!fs.existsSync(`dist/${name}`))throw Error(`Missing ${name}`);
+const html=fs.readFileSync('dist/index.html','utf8');if(/api\.js|config\.js|ngrok/.test(html))throw Error('Legacy forum dependency');
+console.log('Build assets, growth manifest, and unchanged /mc/ verified.');

@@ -1,0 +1,254 @@
+[
+  {
+    "id": "foundations",
+    "title": "Built from the roots.",
+    "projectName": "Programming foundations",
+    "category": "Foundations",
+    "branchId": "foundations",
+    "shortDescription": "Understanding what happens beneath the abstraction.",
+    "technologies": [
+      "C",
+      "C++",
+      "C#",
+      "Low-level programming"
+    ],
+    "achievements": [
+      "98% Software Developer & Tester Technician Exam"
+    ],
+    "metrics": [
+      {
+        "value": 98,
+        "unit": "%",
+        "qualifier": "Technician exam",
+        "source": "Supplied portfolio brief"
+      }
+    ],
+    "relatedProjects": [
+      "reverse-engineering",
+      "griffsoft"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>The foundation</h3>\n<p>Programming fundamentals, low-level exploration, and self-directed experimentation form the roots of my engineering work.</p>\n<h3>My contribution</h3>\n<p>Working across C, C++, and C# built an understanding of memory, execution, types, and the boundaries between managed and native software.</p>\n<h3>Evidence</h3>\n<p>I achieved <strong>98% in the Software Developer &amp; Tester Technician Exam</strong>. The projects that follow show how those foundations developed into professional software, infrastructure, and AI systems.</p>\n"
+  },
+  {
+    "id": "reverse-engineering",
+    "title": "Beneath the interface.",
+    "projectName": "Reverse engineering & native systems",
+    "category": "Low-level engineering",
+    "branchId": "reverse-engineering",
+    "shortDescription": "Following software all the way down to its runtime.",
+    "technologies": [
+      "C++",
+      "Windows internals",
+      "Binary analysis",
+      "API hooking",
+      "ImGui",
+      "Debugging"
+    ],
+    "achievements": [
+      "CS:GO internal mod menu",
+      "Custom Radio1 / audio functionality"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "fyrezone",
+      "foundations"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Context</h3>\n<p>Reverse engineering was an early route into understanding how compiled software behaves beyond its documented interfaces.</p>\n<h3>My contribution</h3>\n<p>I developed a CS:GO internal mod menu with native C++ and ImGui, including custom Radio1/audio functionality. The work involved runtime modification, binary analysis, Windows internals, and hooking concepts.</p>\n<h3>Engineering focus</h3>\n<p>The challenge was connecting low-level execution to usable tooling: investigating behavior, reasoning about process state, and debugging native integrations.</p>\n<h3>What it led to</h3>\n<p>That work provided a foundation for native integration at FyreZone and a continuing interest in the layers beneath high-level APIs.</p>\n"
+  },
+  {
+    "id": "fyrezone",
+    "title": "Across the native boundary.",
+    "projectName": "FyreZone Kft.",
+    "category": "Native integration",
+    "branchId": "reverse-engineering",
+    "shortDescription": "Connecting native C++ with a higher-level runtime.",
+    "technologies": [
+      "C++",
+      "Node.js",
+      "Native modules",
+      "Low-level integration"
+    ],
+    "achievements": [
+      "Native Node.js module development",
+      "Anti-cheat-related development"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "reverse-engineering",
+      "griffsoft"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Context</h3>\n<p>My work at FyreZone Kft. applied native development knowledge to integrations around Node.js and anti-cheat-related systems.</p>\n<h3>My contribution</h3>\n<p>I worked on C++ development and a native Node.js module, connecting low-level functionality to an application runtime.</p>\n<h3>Engineering focus</h3>\n<p>The central concern was the boundary between native implementation and higher-level integration. This entry describes the engineering scope without exposing proprietary implementation details.</p>\n"
+  },
+  {
+    "id": "griffsoft",
+    "title": "Built to keep working.",
+    "projectName": "Griffsoft Zrt.",
+    "category": "Professional software engineering",
+    "branchId": "professional",
+    "shortDescription": "Evolving production software through its difficult edges.",
+    "technologies": [
+      "C#",
+      ".NET",
+      "WinForms",
+      "Middleware",
+      "Keycloak",
+      "OAuth",
+      "OpenID Connect",
+      "PKCE",
+      "CI/CD"
+    ],
+    "achievements": [
+      "Production debugging",
+      "Resource-leak investigation",
+      "Framework migrations"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "fyrezone",
+      "shaiya",
+      "cridellmapi"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Context</h3>\n<p>Enterprise software brings existing behavior, legacy code, and production constraints. My work at Griffsoft spans C#/.NET application development and the systems around it.</p>\n<h3>My contribution</h3>\n<p>I worked with WinForms, middleware, authentication, Keycloak integration, OAuth/OpenID Connect, and PKCE. Other areas included PDF and Excel functionality, framework migrations, refactoring, code review, and CI/CD.</p>\n<h3>Difficult engineering work</h3>\n<p>Resource-management investigations included GDI, font, and memory leaks. Production debugging required tracing behavior across application layers rather than treating symptoms in isolation.</p>\n<h3>Perspective</h3>\n<p>This work strengthened the connection between implementation, maintainability, and responsibility for software already in use.</p>\n"
+  },
+  {
+    "id": "shaiya",
+    "title": "The whole system.",
+    "projectName": "Shaiya MMORPG infrastructure",
+    "category": "Infrastructure & full-stack systems",
+    "branchId": "infrastructure",
+    "shortDescription": "Owning the path from client update to server reliability.",
+    "technologies": [
+      "Game servers",
+      "Backend",
+      "SQL",
+      "Networking",
+      "Deployment",
+      "DDoS mitigation",
+      "Server administration"
+    ],
+    "achievements": [
+      "Client and patch infrastructure",
+      "Full-stack server operation"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "griffsoft",
+      "papai-rag"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Context</h3>\n<p>Running a Shaiya MMORPG private server brings application development and infrastructure operation into the same system.</p>\n<h3>My contribution</h3>\n<p>The work covers the game server, client management, website, backend, database, update and patch infrastructure, deployment, and administration.</p>\n<h3>Reliability and protection</h3>\n<p>Networking, IP protection, and DDoS mitigation are part of the operating architecture. The server has repeatedly been targeted by DDoS attacks; so far, the protection architecture has prevented those attempts from causing meaningful disruption.</p>\n<h3>Engineering focus</h3>\n<p>The system must remain understandable across boundaries: client distribution, application services, storage, and network protection. Reliability is an ongoing operational responsibility.</p>\n"
+  },
+  {
+    "id": "papai-rag",
+    "title": "Knowledge, made local.",
+    "projectName": "Pápai Gépalkatrészek",
+    "category": "Applied AI engineering",
+    "branchId": "applied-ai",
+    "shortDescription": "Thousands of catalogs. One locally running intelligence system.",
+    "technologies": [
+      "Hybrid RAG",
+      "OCR",
+      "Vision extraction",
+      "SQL",
+      "Vector database",
+      "Embeddings",
+      "llama.cpp",
+      "GPU inference"
+    ],
+    "achievements": [
+      "Entire AI stack runs locally",
+      "Hybrid SQL and semantic retrieval",
+      "Local hardware deployment"
+    ],
+    "metrics": [
+      {
+        "value": 4500,
+        "unit": "catalogs",
+        "qualifier": "More than",
+        "source": "Supplied portfolio brief"
+      },
+      {
+        "value": 1600000,
+        "unit": "part records",
+        "qualifier": "Approximately",
+        "source": "Supplied portfolio brief"
+      }
+    ],
+    "relatedProjects": [
+      "shaiya",
+      "cridellmapi",
+      "cohort-search"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>The problem</h3>\n<p>Technical parts information was distributed across <strong>4,500+ PDF catalogs</strong>. Making that collection useful required more than placing documents behind a chat interface.</p>\n<h3>My contribution</h3>\n<p>The system combines OCR, vision-based extraction, structured processing, and multimodal document handling. Approximately <strong>1.6 million structured part records</strong> were extracted from the catalog collection.</p>\n<h3>Architecture</h3>\n<p>Documents flow through extraction into SQL storage and a vector index. Hybrid retrieval combines structured constraints with semantic search. A tool-calling AI agent retrieves relevant parts information and PDFs.</p>\n<h3>Entirely local</h3>\n<p>The entire AI stack runs locally, including model inference with llama.cpp and GPU acceleration. Deployment work includes concurrent usage and VRAM/RAM optimization on local hardware.</p>\n<h3>Engineering decisions</h3>\n<p>The central design task is choosing the right retrieval mechanism for each question: precise structured lookup, semantic retrieval, or a combination. Local deployment makes memory allocation and inference capacity part of the application architecture.</p>\n"
+  },
+  {
+    "id": "cridellmapi",
+    "title": "Beyond the API call.",
+    "projectName": "CrideLLMApi",
+    "category": "LLM systems engineering",
+    "branchId": "llm-systems",
+    "shortDescription": "Typed contracts for streaming, tools, and agent execution.",
+    "technologies": [
+      "Typed DTOs",
+      "OpenAI-compatible APIs",
+      "SSE",
+      "Asynchronous generation",
+      "Tool calling",
+      "Agent loops",
+      "llama.cpp"
+    ],
+    "achievements": [
+      "Strongly typed tool arguments",
+      "Local provider integration",
+      "Custom agentic execution experiments"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "papai-rag",
+      "cohort-search",
+      "griffsoft"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Context</h3>\n<p>CrideLLMApi represents a transition from consuming AI APIs to engineering the infrastructure around them.</p>\n<h3>My contribution</h3>\n<p>The abstraction covers OpenAI-compatible chat completions, embeddings, and model endpoints, with strongly typed DTOs and asynchronous generation.</p>\n<h3>Streaming and execution</h3>\n<p>SSE streaming, context management, function/tool calling, typed tool arguments, tool execution, and agent loops form the execution layer.</p>\n<h3>Local providers</h3>\n<p>Local model providers and llama.cpp integration support experiments with custom agentic execution. The focus is explicit contracts across generation, tool use, and application control flow.</p>\n"
+  },
+  {
+    "id": "cohort-search",
+    "title": "Evidence, not just answers.",
+    "projectName": "Lung cancer cohort search",
+    "category": "Current research",
+    "branchId": "research",
+    "shortDescription": "Engineering traceable retrieval for clinical research.",
+    "technologies": [
+      "Hybrid RAG",
+      "Agentic retrieval",
+      "Structured search",
+      "Evidence verification",
+      "Audit trails",
+      "Local LLMs"
+    ],
+    "achievements": [
+      "University thesis / research project",
+      "Privacy-aware system architecture"
+    ],
+    "metrics": [],
+    "relatedProjects": [
+      "papai-rag",
+      "cridellmapi"
+    ],
+    "links": [],
+    "status": "published",
+    "html": "<h3>Research context</h3>\n<p>My current university thesis explores clinical document retrieval and cohort discovery. The focus here is the engineering architecture, not clinical advice or claims of clinical validation.</p>\n<h3>System design</h3>\n<p>Hybrid structured and semantic search supports inclusion and exclusion criteria. Agentic retrieval helps investigate relevant evidence across clinical documents.</p>\n<h3>Traceability</h3>\n<p>Evidence verification, traceable results, and audit trails are central system concerns. A result should remain connected to the material that supports it.</p>\n<h3>Privacy-aware engineering</h3>\n<p>Local medical language models and document processing are considered within a privacy-aware architecture. This is the newest growth in my work: applying retrieval infrastructure to research-oriented systems.</p>\n"
+  }
+]

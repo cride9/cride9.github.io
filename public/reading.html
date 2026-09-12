@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cride — Engineering history</title><link rel="icon" href="/favicon.svg"><style>body{margin:0;background:#f2f2ef;color:#20211f;font:18px/1.7 system-ui}main{max-width:740px;margin:auto;padding:48px 24px}a{color:inherit;text-underline-offset:5px}article{padding:48px 0;border-top:1px solid #c8c8c2}h1{font-size:44px;font-weight:400}h2{font-weight:500}small{font-size:14px}li{margin:8px 0}</style></head><body><main><a href="/">← Return to the tree</a><h1>An engineering history.</h1><p>Cride · Software engineer</p><nav aria-label="Projects"><ol><li><a href="#foundations">Programming foundations</a></li><li><a href="#reverse-engineering">Reverse engineering &amp; native systems</a></li><li><a href="#fyrezone">FyreZone Kft.</a></li><li><a href="#griffsoft">Griffsoft Zrt.</a></li><li><a href="#shaiya">Shaiya MMORPG infrastructure</a></li><li><a href="#papai-rag">Pápai Gépalkatrészek</a></li><li><a href="#cridellmapi">CrideLLMApi</a></li><li><a href="#cohort-search">Lung cancer cohort search</a></li></ol></nav><article id="foundations"><small>Foundations</small><h2>Programming foundations</h2><h3>The foundation</h3>
+<p>Programming fundamentals, low-level exploration, and self-directed experimentation form the roots of my engineering work.</p>
+<h3>My contribution</h3>
+<p>Working across C, C++, and C# built an understanding of memory, execution, types, and the boundaries between managed and native software.</p>
+<h3>Evidence</h3>
+<p>I achieved <strong>98% in the Software Developer &amp; Tester Technician Exam</strong>. The projects that follow show how those foundations developed into professional software, infrastructure, and AI systems.</p>
+<p>C · C++ · C# · Low-level programming</p></article><article id="reverse-engineering"><small>Low-level engineering</small><h2>Reverse engineering &amp; native systems</h2><h3>Context</h3>
+<p>Reverse engineering was an early route into understanding how compiled software behaves beyond its documented interfaces.</p>
+<h3>My contribution</h3>
+<p>I developed a CS:GO internal mod menu with native C++ and ImGui, including custom Radio1/audio functionality. The work involved runtime modification, binary analysis, Windows internals, and hooking concepts.</p>
+<h3>Engineering focus</h3>
+<p>The challenge was connecting low-level execution to usable tooling: investigating behavior, reasoning about process state, and debugging native integrations.</p>
+<h3>What it led to</h3>
+<p>That work provided a foundation for native integration at FyreZone and a continuing interest in the layers beneath high-level APIs.</p>
+<p>C++ · Windows internals · Binary analysis · API hooking · ImGui · Debugging</p></article><article id="fyrezone"><small>Native integration</small><h2>FyreZone Kft.</h2><h3>Context</h3>
+<p>My work at FyreZone Kft. applied native development knowledge to integrations around Node.js and anti-cheat-related systems.</p>
+<h3>My contribution</h3>
+<p>I worked on C++ development and a native Node.js module, connecting low-level functionality to an application runtime.</p>
+<h3>Engineering focus</h3>
+<p>The central concern was the boundary between native implementation and higher-level integration. This entry describes the engineering scope without exposing proprietary implementation details.</p>
+<p>C++ · Node.js · Native modules · Low-level integration</p></article><article id="griffsoft"><small>Professional software engineering</small><h2>Griffsoft Zrt.</h2><h3>Context</h3>
+<p>Enterprise software brings existing behavior, legacy code, and production constraints. My work at Griffsoft spans C#/.NET application development and the systems around it.</p>
+<h3>My contribution</h3>
+<p>I worked with WinForms, middleware, authentication, Keycloak integration, OAuth/OpenID Connect, and PKCE. Other areas included PDF and Excel functionality, framework migrations, refactoring, code review, and CI/CD.</p>
+<h3>Difficult engineering work</h3>
+<p>Resource-management investigations included GDI, font, and memory leaks. Production debugging required tracing behavior across application layers rather than treating symptoms in isolation.</p>
+<h3>Perspective</h3>
+<p>This work strengthened the connection between implementation, maintainability, and responsibility for software already in use.</p>
+<p>C# · .NET · WinForms · Middleware · Keycloak · OAuth · OpenID Connect · PKCE · CI/CD</p></article><article id="shaiya"><small>Infrastructure &amp; full-stack systems</small><h2>Shaiya MMORPG infrastructure</h2><h3>Context</h3>
+<p>Running a Shaiya MMORPG private server brings application development and infrastructure operation into the same system.</p>
+<h3>My contribution</h3>
+<p>The work covers the game server, client management, website, backend, database, update and patch infrastructure, deployment, and administration.</p>
+<h3>Reliability and protection</h3>
+<p>Networking, IP protection, and DDoS mitigation are part of the operating architecture. The server has repeatedly been targeted by DDoS attacks; so far, the protection architecture has prevented those attempts from causing meaningful disruption.</p>
+<h3>Engineering focus</h3>
+<p>The system must remain understandable across boundaries: client distribution, application services, storage, and network protection. Reliability is an ongoing operational responsibility.</p>
+<p>Game servers · Backend · SQL · Networking · Deployment · DDoS mitigation · Server administration</p></article><article id="papai-rag"><small>Applied AI engineering</small><h2>Pápai Gépalkatrészek</h2><h3>The problem</h3>
+<p>Technical parts information was distributed across <strong>4,500+ PDF catalogs</strong>. Making that collection useful required more than placing documents behind a chat interface.</p>
+<h3>My contribution</h3>
+<p>The system combines OCR, vision-based extraction, structured processing, and multimodal document handling. Approximately <strong>1.6 million structured part records</strong> were extracted from the catalog collection.</p>
+<h3>Architecture</h3>
+<p>Documents flow through extraction into SQL storage and a vector index. Hybrid retrieval combines structured constraints with semantic search. A tool-calling AI agent retrieves relevant parts information and PDFs.</p>
+<h3>Entirely local</h3>
+<p>The entire AI stack runs locally, including model inference with llama.cpp and GPU acceleration. Deployment work includes concurrent usage and VRAM/RAM optimization on local hardware.</p>
+<h3>Engineering decisions</h3>
+<p>The central design task is choosing the right retrieval mechanism for each question: precise structured lookup, semantic retrieval, or a combination. Local deployment makes memory allocation and inference capacity part of the application architecture.</p>
+<p>Hybrid RAG · OCR · Vision extraction · SQL · Vector database · Embeddings · llama.cpp · GPU inference</p></article><article id="cridellmapi"><small>LLM systems engineering</small><h2>CrideLLMApi</h2><h3>Context</h3>
+<p>CrideLLMApi represents a transition from consuming AI APIs to engineering the infrastructure around them.</p>
+<h3>My contribution</h3>
+<p>The abstraction covers OpenAI-compatible chat completions, embeddings, and model endpoints, with strongly typed DTOs and asynchronous generation.</p>
+<h3>Streaming and execution</h3>
+<p>SSE streaming, context management, function/tool calling, typed tool arguments, tool execution, and agent loops form the execution layer.</p>
+<h3>Local providers</h3>
+<p>Local model providers and llama.cpp integration support experiments with custom agentic execution. The focus is explicit contracts across generation, tool use, and application control flow.</p>
+<p>Typed DTOs · OpenAI-compatible APIs · SSE · Asynchronous generation · Tool calling · Agent loops · llama.cpp</p></article><article id="cohort-search"><small>Current research</small><h2>Lung cancer cohort search</h2><h3>Research context</h3>
+<p>My current university thesis explores clinical document retrieval and cohort discovery. The focus here is the engineering architecture, not clinical advice or claims of clinical validation.</p>
+<h3>System design</h3>
+<p>Hybrid structured and semantic search supports inclusion and exclusion criteria. Agentic retrieval helps investigate relevant evidence across clinical documents.</p>
+<h3>Traceability</h3>
+<p>Evidence verification, traceable results, and audit trails are central system concerns. A result should remain connected to the material that supports it.</p>
+<h3>Privacy-aware engineering</h3>
+<p>Local medical language models and document processing are considered within a privacy-aware architecture. This is the newest growth in my work: applying retrieval infrastructure to research-oriented systems.</p>
+<p>Hybrid RAG · Agentic retrieval · Structured search · Evidence verification · Audit trails · Local LLMs</p></article></main></body></html>

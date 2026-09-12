@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import { validateContent } from './validation.mjs';
+const order=['foundations','reverse-engineering','fyrezone','griffsoft','shaiya','papai-rag','cridellmapi','cohort-search'];
+const projects=order.map(id=>{const {data,content}=matter(fs.readFileSync(`content/${id}.md`,'utf8'));return {...data,html:marked.parse(content).replaceAll('<h2>','<h3>').replaceAll('</h2>','</h3>')};});
+validateContent(projects);
+fs.mkdirSync('src/generated',{recursive:true}); fs.mkdirSync('public',{recursive:true});
+fs.writeFileSync('src/generated/projects.json',JSON.stringify(projects,null,2));
+const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+fs.writeFileSync('public/reading.html',`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cride — Engineering history</title><link rel="icon" href="/favicon.svg"><style>body{margin:0;background:#f2f2ef;color:#20211f;font:18px/1.7 system-ui}main{max-width:740px;margin:auto;padding:48px 24px}a{color:inherit;text-underline-offset:5px}article{padding:48px 0;border-top:1px solid #c8c8c2}h1{font-size:44px;font-weight:400}h2{font-weight:500}small{font-size:14px}li{margin:8px 0}</style></head><body><main><a href="/">← Return to the tree</a><h1>An engineering history.</h1><p>Cride · Software engineer</p><nav aria-label="Projects"><ol>${projects.map(p=>`<li><a href="#${p.id}">${escape(p.projectName)}</a></li>`).join('')}</ol></nav>${projects.map(p=>`<article id="${p.id}"><small>${escape(p.category)}</small><h2>${escape(p.projectName)}</h2>${p.html}<p>${p.technologies.map(escape).join(' · ')}</p></article>`).join('')}</main></body></html>`);
+console.log(`Compiled and validated ${projects.length} projects.`);

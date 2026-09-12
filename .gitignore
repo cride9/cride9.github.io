@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.tools/
+.sites-runtime/
+.env*
+!.env.example
+artifacts/qa/
+*.blend1
+*.zip
+*.tsbuildinfo
